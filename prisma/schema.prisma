@@ -1,0 +1,273 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id         Int    @id @default(autoincrement())
+  username   String @db.VarChar(100)
+  bio        String @db.VarChar(500)
+  email      String @db.VarChar(100)
+  avatarUrl  String @map("avatar_url") @db.VarChar(1000)
+  password   String @db.VarChar(1000)
+  totpSecret String @map("totp_secret") @db.VarChar(500)
+
+  refreshTokens    RefreshToken[]
+  devices          Device[]
+  createdPosts     Post[]         @relation("PostCreatedBy")
+  updatedPosts     Post[]         @relation("PostUpdatedBy")
+  deletedPosts     Post[]         @relation("PostDeletedBy")
+  createdMedia     Media[]        @relation("MediaCreatedBy")
+  deletedMedia     Media[]        @relation("MediaDeletedBy")
+  bookmarks        Bookmark[]
+  createdBookmarks Bookmark[]     @relation("BookmarkCreatedBy")
+  updatedBookmarks Bookmark[]     @relation("BookmarkUpdatedBy")
+  deletedBookmarks Bookmark[]     @relation("BookmarkDeletedBy")
+  createdTopics    Topic[]        @relation("TopicCreatedBy")
+  updatedTopics    Topic[]        @relation("TopicUpdatedBy")
+  deletedTopics    Topic[]        @relation("TopicDeletedBy")
+  topicMembers     TopicMember[]
+  likes            Like[]
+
+  createdById  Int?   @map("created_by_id")
+  createdBy    User?  @relation("UserCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  createdUsers User[] @relation("UserCreatedBy")
+
+  updatedById  Int?   @map("updated_by_id")
+  updatedBy    User?  @relation("UserUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  updatedUsers User[] @relation("UserUpdatedBy")
+
+  deletedById  Int?   @map("deleted_by_id")
+  deletedBy    User?  @relation("UserDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  deletedUsers User[] @relation("UserDeletedBy")
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+  deletedAt DateTime @map("deleted_at")
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id    Int      @id @default(autoincrement())
+  token String   @db.VarChar(1000)
+  exp   DateTime
+
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  deviceId Int    @map("device_id")
+  device   Device @relation(fields: [deviceId], references: [id])
+
+  createdAt DateTime @map("created_at")
+
+  @@map("refresh_tokens")
+}
+
+model VerificationCode {
+  id        Int                  @id @default(autoincrement())
+  code      String               @db.VarChar(100)
+  email     String               @db.VarChar(100)
+  type      VerificationCodeType
+  expiresAt DateTime             @map("expires_at")
+
+  createdAt DateTime @map("created_at")
+
+  @@map("verification_codes")
+}
+
+model Device {
+  id        Int     @id @default(autoincrement())
+  ip        String  @db.VarChar(50)
+  userAgent String  @map("user_agent") @db.VarChar(500)
+  isActive  Boolean @default(true) @map("is_active")
+
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime @map("created_at")
+  lastActive DateTime @map("last_active")
+
+  refreshTokens RefreshToken[]
+
+  @@map("devices")
+}
+
+model Post {
+  id        Int    @id @default(autoincrement())
+  content   String @db.VarChar(5000)
+  likeCount Int    @default(0) @map("like_count")
+
+  topicId Int?   @map("topic_id")
+  topic   Topic? @relation(fields: [topicId], references: [id])
+
+  createdAt   DateTime @map("created_at")
+  createdById Int      @map("created_by_id")
+  createdBy   User     @relation("PostCreatedBy", fields: [createdById], references: [id])
+
+  updatedAt   DateTime @map("updated_at")
+  updatedById Int?     @map("updated_by_id")
+  updatedBy   User?    @relation("PostUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
+
+  deletedAt   DateTime? @map("deleted_at")
+  deletedById Int?      @map("deleted_by_id")
+  deletedBy   User?     @relation("PostDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull)
+
+  postMedia PostMedia[]
+  bookmarks Bookmark[]
+  likes     Like[]
+
+  @@map("posts")
+}
+
+model Media {
+  id      Int       @id @default(autoincrement())
+  url     String    @db.VarChar(1000)
+  content String?   @db.VarChar(500)
+  type    MediaType
+
+  createdAt   DateTime @map("created_at")
+  createdById Int      @map("created_by_id")
+  createdBy   User     @relation("MediaCreatedBy", fields: [createdById], references: [id])
+
+  deletedAt   DateTime? @map("deleted_at")
+  deletedById Int?      @map("deleted_by_id")
+  deletedBy   User?     @relation("MediaDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull)
+
+  hlsStatus HlsMediaStatus?
+  postMedia PostMedia[]
+
+  @@map("media")
+}
+
+model HlsMediaStatus {
+  id      Int                @id @default(autoincrement())
+  mediaId Int                @unique @map("media_id")
+  media   Media              @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  status  HlsMediaStatusEnum
+
+  createdAt DateTime @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  @@map("hls_media_status")
+}
+
+model PostMedia {
+  id Int @id @default(autoincrement())
+
+  postId Int  @map("post_id")
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  mediaId Int   @map("media_id")
+  media   Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([mediaId, postId])
+  @@map("post_media")
+}
+
+model Bookmark {
+  id Int @id @default(autoincrement())
+
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  postId Int  @map("post_id")
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @map("created_at")
+  createdById Int      @map("created_by_id")
+  createdBy   User     @relation("BookmarkCreatedBy", fields: [createdById], references: [id])
+
+  updatedAt   DateTime @map("updated_at")
+  updatedById Int?     @map("updated_by_id")
+  updatedBy   User?    @relation("BookmarkUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
+
+  deletedAt   DateTime? @map("deleted_at")
+  deletedById Int?      @map("deleted_by_id")
+  deletedBy   User?     @relation("BookmarkDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull)
+
+  @@unique([userId, postId])
+  @@map("bookmarks")
+}
+
+model Topic {
+  id          Int    @id @default(autoincrement())
+  name        String @db.VarChar(200)
+  memberCount Int    @default(0) @map("member_count")
+
+  createdAt   DateTime @map("created_at")
+  createdById Int      @map("created_by_id")
+  createdBy   User     @relation("TopicCreatedBy", fields: [createdById], references: [id])
+
+  updatedAt   DateTime @map("updated_at")
+  updatedById Int?     @map("updated_by_id")
+  updatedBy   User?    @relation("TopicUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
+
+  deletedAt   DateTime? @map("deleted_at")
+  deletedById Int?      @map("deleted_by_id")
+  deletedBy   User?     @relation("TopicDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull)
+
+  posts        Post[]
+  topicMembers TopicMember[]
+
+  @@map("topics")
+}
+
+model TopicMember {
+  id Int @id @default(autoincrement())
+
+  topicId Int   @map("topic_id")
+  topic   Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @map("created_at")
+
+  @@unique([topicId, userId])
+  @@map("topic_members")
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  postId Int  @map("post_id")
+  post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @map("created_at")
+
+  @@unique([postId, userId])
+  @@map("likes")
+}
+
+enum MediaType {
+  VIDEO
+  IMAGE
+}
+
+enum VerificationCodeType {
+  REGISTER
+  LOGIN
+  CHANGE_PASSWORD
+  DISABLE_2FA
+}
+
+enum HlsMediaStatusEnum {
+  IN_QUEUE
+  PROCESSING
+  SUCCESS
+  FAILED
+}
