@@ -364,8 +364,8 @@ export type PostScalarWhereWithAggregatesInput = {
 export type PostCreateInput = {
   content: string
   likeCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
@@ -381,9 +381,9 @@ export type PostUncheckedCreateInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -428,9 +428,9 @@ export type PostCreateManyInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -655,10 +655,6 @@ export type PostUncheckedUpdateManyWithoutDeletedByNestedInput = {
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type PostCreateNestedOneWithoutPostMediaInput = {
   create?: Prisma.XOR<Prisma.PostCreateWithoutPostMediaInput, Prisma.PostUncheckedCreateWithoutPostMediaInput>
   connectOrCreate?: Prisma.PostCreateOrConnectWithoutPostMediaInput
@@ -746,8 +742,8 @@ export type PostUpdateOneRequiredWithoutLikesNestedInput = {
 export type PostCreateWithoutCreatedByInput = {
   content: string
   likeCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPostsInput
@@ -762,8 +758,8 @@ export type PostUncheckedCreateWithoutCreatedByInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -785,8 +781,8 @@ export type PostCreateManyCreatedByInputEnvelope = {
 export type PostCreateWithoutUpdatedByInput = {
   content: string
   likeCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
@@ -801,9 +797,9 @@ export type PostUncheckedCreateWithoutUpdatedByInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   deletedById?: number | null
   postMedia?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
@@ -824,8 +820,8 @@ export type PostCreateManyUpdatedByInputEnvelope = {
 export type PostCreateWithoutDeletedByInput = {
   content: string
   likeCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
@@ -840,9 +836,9 @@ export type PostUncheckedCreateWithoutDeletedByInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   postMedia?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
@@ -927,8 +923,8 @@ export type PostUpdateManyWithWhereWithoutDeletedByInput = {
 export type PostCreateWithoutPostMediaInput = {
   content: string
   likeCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
@@ -943,9 +939,9 @@ export type PostUncheckedCreateWithoutPostMediaInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -1001,8 +997,8 @@ export type PostUncheckedUpdateWithoutPostMediaInput = {
 export type PostCreateWithoutBookmarksInput = {
   content: string
   likeCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
@@ -1017,9 +1013,9 @@ export type PostUncheckedCreateWithoutBookmarksInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -1075,8 +1071,8 @@ export type PostUncheckedUpdateWithoutBookmarksInput = {
 export type PostCreateWithoutTopicInput = {
   content: string
   likeCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPostsInput
@@ -1090,9 +1086,9 @@ export type PostUncheckedCreateWithoutTopicInput = {
   id?: number
   content: string
   likeCount?: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -1130,8 +1126,8 @@ export type PostUpdateManyWithWhereWithoutTopicInput = {
 export type PostCreateWithoutLikesInput = {
   content: string
   likeCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
@@ -1146,9 +1142,9 @@ export type PostUncheckedCreateWithoutLikesInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -1206,8 +1202,8 @@ export type PostCreateManyCreatedByInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -1218,9 +1214,9 @@ export type PostCreateManyUpdatedByInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   deletedById?: number | null
 }
@@ -1230,9 +1226,9 @@ export type PostCreateManyDeletedByInput = {
   content: string
   likeCount?: number
   topicId?: number | null
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
 }
@@ -1364,9 +1360,9 @@ export type PostCreateManyTopicInput = {
   id?: number
   content: string
   likeCount?: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null

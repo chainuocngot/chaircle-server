@@ -277,7 +277,7 @@ export type VerificationCodeCreateInput = {
   email: string
   type: $Enums.VerificationCodeType
   expiresAt: Date | string
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type VerificationCodeUncheckedCreateInput = {
@@ -286,7 +286,7 @@ export type VerificationCodeUncheckedCreateInput = {
   email: string
   type: $Enums.VerificationCodeType
   expiresAt: Date | string
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type VerificationCodeUpdateInput = {
@@ -312,7 +312,7 @@ export type VerificationCodeCreateManyInput = {
   email: string
   type: $Enums.VerificationCodeType
   expiresAt: Date | string
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type VerificationCodeUpdateManyMutationInput = {

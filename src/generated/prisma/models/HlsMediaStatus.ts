@@ -269,8 +269,8 @@ export type HlsMediaStatusScalarWhereWithAggregatesInput = {
 
 export type HlsMediaStatusCreateInput = {
   status: $Enums.HlsMediaStatusEnum
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   media: Prisma.MediaCreateNestedOneWithoutHlsStatusInput
 }
 
@@ -278,8 +278,8 @@ export type HlsMediaStatusUncheckedCreateInput = {
   id?: number
   mediaId: number
   status: $Enums.HlsMediaStatusEnum
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type HlsMediaStatusUpdateInput = {
@@ -301,8 +301,8 @@ export type HlsMediaStatusCreateManyInput = {
   id?: number
   mediaId: number
   status: $Enums.HlsMediaStatusEnum
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type HlsMediaStatusUpdateManyMutationInput = {
@@ -396,15 +396,15 @@ export type EnumHlsMediaStatusEnumFieldUpdateOperationsInput = {
 
 export type HlsMediaStatusCreateWithoutMediaInput = {
   status: $Enums.HlsMediaStatusEnum
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type HlsMediaStatusUncheckedCreateWithoutMediaInput = {
   id?: number
   status: $Enums.HlsMediaStatusEnum
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type HlsMediaStatusCreateOrConnectWithoutMediaInput = {

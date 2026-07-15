@@ -248,17 +248,17 @@ export type RefreshTokenOrderByWithRelationInput = {
 
 export type RefreshTokenWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  token?: string
   AND?: Prisma.RefreshTokenWhereInput | Prisma.RefreshTokenWhereInput[]
   OR?: Prisma.RefreshTokenWhereInput[]
   NOT?: Prisma.RefreshTokenWhereInput | Prisma.RefreshTokenWhereInput[]
-  token?: Prisma.StringFilter<"RefreshToken"> | string
   exp?: Prisma.DateTimeFilter<"RefreshToken"> | Date | string
   userId?: Prisma.IntFilter<"RefreshToken"> | number
   deviceId?: Prisma.IntFilter<"RefreshToken"> | number
   createdAt?: Prisma.DateTimeFilter<"RefreshToken"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   device?: Prisma.XOR<Prisma.DeviceScalarRelationFilter, Prisma.DeviceWhereInput>
-}, "id">
+}, "id" | "token">
 
 export type RefreshTokenOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -289,7 +289,7 @@ export type RefreshTokenScalarWhereWithAggregatesInput = {
 export type RefreshTokenCreateInput = {
   token: string
   exp: Date | string
-  createdAt: Date | string
+  createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRefreshTokensInput
   device: Prisma.DeviceCreateNestedOneWithoutRefreshTokensInput
 }
@@ -300,7 +300,7 @@ export type RefreshTokenUncheckedCreateInput = {
   exp: Date | string
   userId: number
   deviceId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type RefreshTokenUpdateInput = {
@@ -326,7 +326,7 @@ export type RefreshTokenCreateManyInput = {
   exp: Date | string
   userId: number
   deviceId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type RefreshTokenUpdateManyMutationInput = {
@@ -480,7 +480,7 @@ export type RefreshTokenUncheckedUpdateManyWithoutDeviceNestedInput = {
 export type RefreshTokenCreateWithoutUserInput = {
   token: string
   exp: Date | string
-  createdAt: Date | string
+  createdAt?: Date | string
   device: Prisma.DeviceCreateNestedOneWithoutRefreshTokensInput
 }
 
@@ -489,7 +489,7 @@ export type RefreshTokenUncheckedCreateWithoutUserInput = {
   token: string
   exp: Date | string
   deviceId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type RefreshTokenCreateOrConnectWithoutUserInput = {
@@ -533,7 +533,7 @@ export type RefreshTokenScalarWhereInput = {
 export type RefreshTokenCreateWithoutDeviceInput = {
   token: string
   exp: Date | string
-  createdAt: Date | string
+  createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutRefreshTokensInput
 }
 
@@ -542,7 +542,7 @@ export type RefreshTokenUncheckedCreateWithoutDeviceInput = {
   token: string
   exp: Date | string
   userId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type RefreshTokenCreateOrConnectWithoutDeviceInput = {
@@ -576,7 +576,7 @@ export type RefreshTokenCreateManyUserInput = {
   token: string
   exp: Date | string
   deviceId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type RefreshTokenUpdateWithoutUserInput = {
@@ -607,7 +607,7 @@ export type RefreshTokenCreateManyDeviceInput = {
   token: string
   exp: Date | string
   userId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type RefreshTokenUpdateWithoutDeviceInput = {

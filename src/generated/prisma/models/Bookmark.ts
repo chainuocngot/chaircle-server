@@ -345,8 +345,8 @@ export type BookmarkScalarWhereWithAggregatesInput = {
 }
 
 export type BookmarkCreateInput = {
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBookmarksInput
   post: Prisma.PostCreateNestedOneWithoutBookmarksInput
@@ -359,9 +359,9 @@ export type BookmarkUncheckedCreateInput = {
   id?: number
   userId: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -394,9 +394,9 @@ export type BookmarkCreateManyInput = {
   id?: number
   userId: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -700,8 +700,8 @@ export type BookmarkUncheckedUpdateManyWithoutPostNestedInput = {
 }
 
 export type BookmarkCreateWithoutUserInput = {
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   post: Prisma.PostCreateNestedOneWithoutBookmarksInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedBookmarksInput
@@ -712,9 +712,9 @@ export type BookmarkCreateWithoutUserInput = {
 export type BookmarkUncheckedCreateWithoutUserInput = {
   id?: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -731,8 +731,8 @@ export type BookmarkCreateManyUserInputEnvelope = {
 }
 
 export type BookmarkCreateWithoutCreatedByInput = {
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBookmarksInput
   post: Prisma.PostCreateNestedOneWithoutBookmarksInput
@@ -744,8 +744,8 @@ export type BookmarkUncheckedCreateWithoutCreatedByInput = {
   id?: number
   userId: number
   postId: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -762,8 +762,8 @@ export type BookmarkCreateManyCreatedByInputEnvelope = {
 }
 
 export type BookmarkCreateWithoutUpdatedByInput = {
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBookmarksInput
   post: Prisma.PostCreateNestedOneWithoutBookmarksInput
@@ -775,9 +775,9 @@ export type BookmarkUncheckedCreateWithoutUpdatedByInput = {
   id?: number
   userId: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   deletedById?: number | null
 }
@@ -793,8 +793,8 @@ export type BookmarkCreateManyUpdatedByInputEnvelope = {
 }
 
 export type BookmarkCreateWithoutDeletedByInput = {
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBookmarksInput
   post: Prisma.PostCreateNestedOneWithoutBookmarksInput
@@ -806,9 +806,9 @@ export type BookmarkUncheckedCreateWithoutDeletedByInput = {
   id?: number
   userId: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
 }
@@ -903,8 +903,8 @@ export type BookmarkUpdateManyWithWhereWithoutDeletedByInput = {
 }
 
 export type BookmarkCreateWithoutPostInput = {
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutBookmarksInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedBookmarksInput
@@ -915,9 +915,9 @@ export type BookmarkCreateWithoutPostInput = {
 export type BookmarkUncheckedCreateWithoutPostInput = {
   id?: number
   userId: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -952,9 +952,9 @@ export type BookmarkUpdateManyWithWhereWithoutPostInput = {
 export type BookmarkCreateManyUserInput = {
   id?: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -964,8 +964,8 @@ export type BookmarkCreateManyCreatedByInput = {
   id?: number
   userId: number
   postId: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -975,9 +975,9 @@ export type BookmarkCreateManyUpdatedByInput = {
   id?: number
   userId: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   deletedById?: number | null
 }
@@ -986,9 +986,9 @@ export type BookmarkCreateManyDeletedByInput = {
   id?: number
   userId: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
 }
@@ -1124,9 +1124,9 @@ export type BookmarkUncheckedUpdateManyWithoutDeletedByInput = {
 export type BookmarkCreateManyPostInput = {
   id?: number
   userId: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null

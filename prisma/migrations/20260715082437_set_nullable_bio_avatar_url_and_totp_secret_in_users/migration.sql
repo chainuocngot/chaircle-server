@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "users" ALTER COLUMN "bio" DROP NOT NULL,
+ALTER COLUMN "avatar_url" DROP NOT NULL,
+ALTER COLUMN "totp_secret" DROP NOT NULL;

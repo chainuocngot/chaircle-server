@@ -298,8 +298,8 @@ export type DeviceCreateInput = {
   ip: string
   userAgent: string
   isActive?: boolean
-  createdAt: Date | string
-  lastActive: Date | string
+  createdAt?: Date | string
+  lastActive?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDevicesInput
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutDeviceInput
 }
@@ -310,8 +310,8 @@ export type DeviceUncheckedCreateInput = {
   userAgent: string
   isActive?: boolean
   userId: number
-  createdAt: Date | string
-  lastActive: Date | string
+  createdAt?: Date | string
+  lastActive?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutDeviceInput
 }
 
@@ -342,8 +342,8 @@ export type DeviceCreateManyInput = {
   userAgent: string
   isActive?: boolean
   userId: number
-  createdAt: Date | string
-  lastActive: Date | string
+  createdAt?: Date | string
+  lastActive?: Date | string
 }
 
 export type DeviceUpdateManyMutationInput = {
@@ -483,8 +483,8 @@ export type DeviceCreateWithoutUserInput = {
   ip: string
   userAgent: string
   isActive?: boolean
-  createdAt: Date | string
-  lastActive: Date | string
+  createdAt?: Date | string
+  lastActive?: Date | string
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutDeviceInput
 }
 
@@ -493,8 +493,8 @@ export type DeviceUncheckedCreateWithoutUserInput = {
   ip: string
   userAgent: string
   isActive?: boolean
-  createdAt: Date | string
-  lastActive: Date | string
+  createdAt?: Date | string
+  lastActive?: Date | string
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutDeviceInput
 }
 
@@ -541,8 +541,8 @@ export type DeviceCreateWithoutRefreshTokensInput = {
   ip: string
   userAgent: string
   isActive?: boolean
-  createdAt: Date | string
-  lastActive: Date | string
+  createdAt?: Date | string
+  lastActive?: Date | string
   user: Prisma.UserCreateNestedOneWithoutDevicesInput
 }
 
@@ -552,8 +552,8 @@ export type DeviceUncheckedCreateWithoutRefreshTokensInput = {
   userAgent: string
   isActive?: boolean
   userId: number
-  createdAt: Date | string
-  lastActive: Date | string
+  createdAt?: Date | string
+  lastActive?: Date | string
 }
 
 export type DeviceCreateOrConnectWithoutRefreshTokensInput = {
@@ -596,8 +596,8 @@ export type DeviceCreateManyUserInput = {
   ip: string
   userAgent: string
   isActive?: boolean
-  createdAt: Date | string
-  lastActive: Date | string
+  createdAt?: Date | string
+  lastActive?: Date | string
 }
 
 export type DeviceUpdateWithoutUserInput = {

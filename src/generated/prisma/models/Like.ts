@@ -264,7 +264,7 @@ export type LikeScalarWhereWithAggregatesInput = {
 }
 
 export type LikeCreateInput = {
-  createdAt: Date | string
+  createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutLikesInput
   post: Prisma.PostCreateNestedOneWithoutLikesInput
 }
@@ -273,7 +273,7 @@ export type LikeUncheckedCreateInput = {
   id?: number
   userId: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type LikeUpdateInput = {
@@ -293,7 +293,7 @@ export type LikeCreateManyInput = {
   id?: number
   userId: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type LikeUpdateManyMutationInput = {
@@ -440,14 +440,14 @@ export type LikeUncheckedUpdateManyWithoutPostNestedInput = {
 }
 
 export type LikeCreateWithoutUserInput = {
-  createdAt: Date | string
+  createdAt?: Date | string
   post: Prisma.PostCreateNestedOneWithoutLikesInput
 }
 
 export type LikeUncheckedCreateWithoutUserInput = {
   id?: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type LikeCreateOrConnectWithoutUserInput = {
@@ -487,14 +487,14 @@ export type LikeScalarWhereInput = {
 }
 
 export type LikeCreateWithoutPostInput = {
-  createdAt: Date | string
+  createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutLikesInput
 }
 
 export type LikeUncheckedCreateWithoutPostInput = {
   id?: number
   userId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type LikeCreateOrConnectWithoutPostInput = {
@@ -526,7 +526,7 @@ export type LikeUpdateManyWithWhereWithoutPostInput = {
 export type LikeCreateManyUserInput = {
   id?: number
   postId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type LikeUpdateWithoutUserInput = {
@@ -549,7 +549,7 @@ export type LikeUncheckedUpdateManyWithoutUserInput = {
 export type LikeCreateManyPostInput = {
   id?: number
   userId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type LikeUpdateWithoutPostInput = {

@@ -289,10 +289,10 @@ export type TopicOrderByWithRelationInput = {
 
 export type TopicWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  name?: string
   AND?: Prisma.TopicWhereInput | Prisma.TopicWhereInput[]
   OR?: Prisma.TopicWhereInput[]
   NOT?: Prisma.TopicWhereInput | Prisma.TopicWhereInput[]
-  name?: Prisma.StringFilter<"Topic"> | string
   memberCount?: Prisma.IntFilter<"Topic"> | number
   createdAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   createdById?: Prisma.IntFilter<"Topic"> | number
@@ -305,7 +305,7 @@ export type TopicWhereUniqueInput = Prisma.AtLeast<{
   deletedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   posts?: Prisma.PostListRelationFilter
   topicMembers?: Prisma.TopicMemberListRelationFilter
-}, "id">
+}, "id" | "name">
 
 export type TopicOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -342,8 +342,8 @@ export type TopicScalarWhereWithAggregatesInput = {
 export type TopicCreateInput = {
   name: string
   memberCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedTopicsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedTopicsInput
@@ -356,9 +356,9 @@ export type TopicUncheckedCreateInput = {
   id?: number
   name: string
   memberCount?: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -397,9 +397,9 @@ export type TopicCreateManyInput = {
   id?: number
   name: string
   memberCount?: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -656,8 +656,8 @@ export type TopicUpdateOneRequiredWithoutTopicMembersNestedInput = {
 export type TopicCreateWithoutCreatedByInput = {
   name: string
   memberCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedTopicsInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedTopicsInput
@@ -669,8 +669,8 @@ export type TopicUncheckedCreateWithoutCreatedByInput = {
   id?: number
   name: string
   memberCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -691,8 +691,8 @@ export type TopicCreateManyCreatedByInputEnvelope = {
 export type TopicCreateWithoutUpdatedByInput = {
   name: string
   memberCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedTopicsInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedTopicsInput
@@ -704,9 +704,9 @@ export type TopicUncheckedCreateWithoutUpdatedByInput = {
   id?: number
   name: string
   memberCount?: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   deletedById?: number | null
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutTopicInput
@@ -726,8 +726,8 @@ export type TopicCreateManyUpdatedByInputEnvelope = {
 export type TopicCreateWithoutDeletedByInput = {
   name: string
   memberCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedTopicsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedTopicsInput
@@ -739,9 +739,9 @@ export type TopicUncheckedCreateWithoutDeletedByInput = {
   id?: number
   name: string
   memberCount?: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutTopicInput
@@ -824,8 +824,8 @@ export type TopicUpdateManyWithWhereWithoutDeletedByInput = {
 export type TopicCreateWithoutPostsInput = {
   name: string
   memberCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedTopicsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedTopicsInput
@@ -837,9 +837,9 @@ export type TopicUncheckedCreateWithoutPostsInput = {
   id?: number
   name: string
   memberCount?: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -890,8 +890,8 @@ export type TopicUncheckedUpdateWithoutPostsInput = {
 export type TopicCreateWithoutTopicMembersInput = {
   name: string
   memberCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedTopicsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedTopicsInput
@@ -903,9 +903,9 @@ export type TopicUncheckedCreateWithoutTopicMembersInput = {
   id?: number
   name: string
   memberCount?: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -957,8 +957,8 @@ export type TopicCreateManyCreatedByInput = {
   id?: number
   name: string
   memberCount?: number
-  createdAt: Date | string
-  updatedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -968,9 +968,9 @@ export type TopicCreateManyUpdatedByInput = {
   id?: number
   name: string
   memberCount?: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   deletedAt?: Date | string | null
   deletedById?: number | null
 }
@@ -979,9 +979,9 @@ export type TopicCreateManyDeletedByInput = {
   id?: number
   name: string
   memberCount?: number
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
-  updatedAt: Date | string
+  updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
 }

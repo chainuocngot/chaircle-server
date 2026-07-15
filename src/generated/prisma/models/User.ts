@@ -241,17 +241,17 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UserGroupByOutputType = {
   id: number
   username: string
-  bio: string
+  bio: string | null
   email: string
-  avatarUrl: string
+  avatarUrl: string | null
   password: string
-  totpSecret: string
+  totpSecret: string | null
   createdById: number | null
   updatedById: number | null
   deletedById: number | null
   createdAt: Date
   updatedAt: Date
-  deletedAt: Date
+  deletedAt: Date | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -280,17 +280,17 @@ export type UserWhereInput = {
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
   username?: Prisma.StringFilter<"User"> | string
-  bio?: Prisma.StringFilter<"User"> | string
+  bio?: Prisma.StringNullableFilter<"User"> | string | null
   email?: Prisma.StringFilter<"User"> | string
-  avatarUrl?: Prisma.StringFilter<"User"> | string
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringFilter<"User"> | string
-  totpSecret?: Prisma.StringFilter<"User"> | string
+  totpSecret?: Prisma.StringNullableFilter<"User"> | string | null
   createdById?: Prisma.IntNullableFilter<"User"> | number | null
   updatedById?: Prisma.IntNullableFilter<"User"> | number | null
   deletedById?: Prisma.IntNullableFilter<"User"> | number | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  deletedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   devices?: Prisma.DeviceListRelationFilter
   createdPosts?: Prisma.PostListRelationFilter
@@ -318,17 +318,17 @@ export type UserWhereInput = {
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   username?: Prisma.SortOrder
-  bio?: Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrder
-  avatarUrl?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrder
-  totpSecret?: Prisma.SortOrder
+  totpSecret?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
   devices?: Prisma.DeviceOrderByRelationAggregateInput
   createdPosts?: Prisma.PostOrderByRelationAggregateInput
@@ -355,21 +355,21 @@ export type UserOrderByWithRelationInput = {
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  username?: string
+  email?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  username?: Prisma.StringFilter<"User"> | string
-  bio?: Prisma.StringFilter<"User"> | string
-  email?: Prisma.StringFilter<"User"> | string
-  avatarUrl?: Prisma.StringFilter<"User"> | string
+  bio?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringFilter<"User"> | string
-  totpSecret?: Prisma.StringFilter<"User"> | string
+  totpSecret?: Prisma.StringNullableFilter<"User"> | string | null
   createdById?: Prisma.IntNullableFilter<"User"> | number | null
   updatedById?: Prisma.IntNullableFilter<"User"> | number | null
   deletedById?: Prisma.IntNullableFilter<"User"> | number | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  deletedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
   devices?: Prisma.DeviceListRelationFilter
   createdPosts?: Prisma.PostListRelationFilter
@@ -392,22 +392,22 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedUsers?: Prisma.UserListRelationFilter
   deletedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   deletedUsers?: Prisma.UserListRelationFilter
-}, "id">
+}, "id" | "username" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   username?: Prisma.SortOrder
-  bio?: Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrder
-  avatarUrl?: Prisma.SortOrder
+  avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrder
-  totpSecret?: Prisma.SortOrder
+  totpSecret?: Prisma.SortOrderInput | Prisma.SortOrder
   createdById?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -421,29 +421,29 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   username?: Prisma.StringWithAggregatesFilter<"User"> | string
-  bio?: Prisma.StringWithAggregatesFilter<"User"> | string
+  bio?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  avatarUrl?: Prisma.StringWithAggregatesFilter<"User"> | string
+  avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
-  totpSecret?: Prisma.StringWithAggregatesFilter<"User"> | string
+  totpSecret?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdById?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   updatedById?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   deletedById?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
-  deletedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
 }
 
 export type UserCreateInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -471,17 +471,17 @@ export type UserCreateInput = {
 export type UserUncheckedCreateInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -505,14 +505,14 @@ export type UserUncheckedCreateInput = {
 
 export type UserUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -540,17 +540,17 @@ export type UserUpdateInput = {
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -575,45 +575,45 @@ export type UserUncheckedUpdateInput = {
 export type UserCreateManyInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type UserUpdateManyMutationInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserNullableScalarRelationFilter = {
@@ -762,8 +762,16 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type UserUpdateOneWithoutCreatedUsersNestedInput = {
@@ -1136,14 +1144,14 @@ export type UserUpdateOneRequiredWithoutLikesNestedInput = {
 
 export type UserCreateWithoutCreatedUsersInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -1170,17 +1178,17 @@ export type UserCreateWithoutCreatedUsersInput = {
 export type UserUncheckedCreateWithoutCreatedUsersInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1208,14 +1216,14 @@ export type UserCreateOrConnectWithoutCreatedUsersInput = {
 
 export type UserCreateWithoutCreatedByInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -1242,16 +1250,16 @@ export type UserCreateWithoutCreatedByInput = {
 export type UserUncheckedCreateWithoutCreatedByInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1285,14 +1293,14 @@ export type UserCreateManyCreatedByInputEnvelope = {
 
 export type UserCreateWithoutUpdatedUsersInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -1319,17 +1327,17 @@ export type UserCreateWithoutUpdatedUsersInput = {
 export type UserUncheckedCreateWithoutUpdatedUsersInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1357,14 +1365,14 @@ export type UserCreateOrConnectWithoutUpdatedUsersInput = {
 
 export type UserCreateWithoutUpdatedByInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -1391,16 +1399,16 @@ export type UserCreateWithoutUpdatedByInput = {
 export type UserUncheckedCreateWithoutUpdatedByInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1434,14 +1442,14 @@ export type UserCreateManyUpdatedByInputEnvelope = {
 
 export type UserCreateWithoutDeletedUsersInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -1468,17 +1476,17 @@ export type UserCreateWithoutDeletedUsersInput = {
 export type UserUncheckedCreateWithoutDeletedUsersInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1506,14 +1514,14 @@ export type UserCreateOrConnectWithoutDeletedUsersInput = {
 
 export type UserCreateWithoutDeletedByInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -1540,16 +1548,16 @@ export type UserCreateWithoutDeletedByInput = {
 export type UserUncheckedCreateWithoutDeletedByInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -1594,14 +1602,14 @@ export type UserUpdateToOneWithWhereWithoutCreatedUsersInput = {
 
 export type UserUpdateWithoutCreatedUsersInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -1628,17 +1636,17 @@ export type UserUpdateWithoutCreatedUsersInput = {
 export type UserUncheckedUpdateWithoutCreatedUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1681,17 +1689,17 @@ export type UserScalarWhereInput = {
   NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
   username?: Prisma.StringFilter<"User"> | string
-  bio?: Prisma.StringFilter<"User"> | string
+  bio?: Prisma.StringNullableFilter<"User"> | string | null
   email?: Prisma.StringFilter<"User"> | string
-  avatarUrl?: Prisma.StringFilter<"User"> | string
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringFilter<"User"> | string
-  totpSecret?: Prisma.StringFilter<"User"> | string
+  totpSecret?: Prisma.StringNullableFilter<"User"> | string | null
   createdById?: Prisma.IntNullableFilter<"User"> | number | null
   updatedById?: Prisma.IntNullableFilter<"User"> | number | null
   deletedById?: Prisma.IntNullableFilter<"User"> | number | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  deletedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
 }
 
 export type UserUpsertWithoutUpdatedUsersInput = {
@@ -1707,14 +1715,14 @@ export type UserUpdateToOneWithWhereWithoutUpdatedUsersInput = {
 
 export type UserUpdateWithoutUpdatedUsersInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -1741,17 +1749,17 @@ export type UserUpdateWithoutUpdatedUsersInput = {
 export type UserUncheckedUpdateWithoutUpdatedUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1801,14 +1809,14 @@ export type UserUpdateToOneWithWhereWithoutDeletedUsersInput = {
 
 export type UserUpdateWithoutDeletedUsersInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -1835,17 +1843,17 @@ export type UserUpdateWithoutDeletedUsersInput = {
 export type UserUncheckedUpdateWithoutDeletedUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -1884,14 +1892,14 @@ export type UserUpdateManyWithWhereWithoutDeletedByInput = {
 
 export type UserCreateWithoutRefreshTokensInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
   updatedPosts?: Prisma.PostCreateNestedManyWithoutUpdatedByInput
@@ -1918,17 +1926,17 @@ export type UserCreateWithoutRefreshTokensInput = {
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
   updatedPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -1967,14 +1975,14 @@ export type UserUpdateToOneWithWhereWithoutRefreshTokensInput = {
 
 export type UserUpdateWithoutRefreshTokensInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
   updatedPosts?: Prisma.PostUpdateManyWithoutUpdatedByNestedInput
@@ -2001,17 +2009,17 @@ export type UserUpdateWithoutRefreshTokensInput = {
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedPosts?: Prisma.PostUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -2034,14 +2042,14 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
 
 export type UserCreateWithoutDevicesInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
   updatedPosts?: Prisma.PostCreateNestedManyWithoutUpdatedByInput
@@ -2068,17 +2076,17 @@ export type UserCreateWithoutDevicesInput = {
 export type UserUncheckedCreateWithoutDevicesInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
   updatedPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -2117,14 +2125,14 @@ export type UserUpdateToOneWithWhereWithoutDevicesInput = {
 
 export type UserUpdateWithoutDevicesInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
   updatedPosts?: Prisma.PostUpdateManyWithoutUpdatedByNestedInput
@@ -2151,17 +2159,17 @@ export type UserUpdateWithoutDevicesInput = {
 export type UserUncheckedUpdateWithoutDevicesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedPosts?: Prisma.PostUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -2184,14 +2192,14 @@ export type UserUncheckedUpdateWithoutDevicesInput = {
 
 export type UserCreateWithoutCreatedPostsInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   updatedPosts?: Prisma.PostCreateNestedManyWithoutUpdatedByInput
@@ -2218,17 +2226,17 @@ export type UserCreateWithoutCreatedPostsInput = {
 export type UserUncheckedCreateWithoutCreatedPostsInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   updatedPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUpdatedByInput
@@ -2256,14 +2264,14 @@ export type UserCreateOrConnectWithoutCreatedPostsInput = {
 
 export type UserCreateWithoutUpdatedPostsInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -2290,17 +2298,17 @@ export type UserCreateWithoutUpdatedPostsInput = {
 export type UserUncheckedCreateWithoutUpdatedPostsInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2328,14 +2336,14 @@ export type UserCreateOrConnectWithoutUpdatedPostsInput = {
 
 export type UserCreateWithoutDeletedPostsInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -2362,17 +2370,17 @@ export type UserCreateWithoutDeletedPostsInput = {
 export type UserUncheckedCreateWithoutDeletedPostsInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2411,14 +2419,14 @@ export type UserUpdateToOneWithWhereWithoutCreatedPostsInput = {
 
 export type UserUpdateWithoutCreatedPostsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   updatedPosts?: Prisma.PostUpdateManyWithoutUpdatedByNestedInput
@@ -2445,17 +2453,17 @@ export type UserUpdateWithoutCreatedPostsInput = {
 export type UserUncheckedUpdateWithoutCreatedPostsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   updatedPosts?: Prisma.PostUncheckedUpdateManyWithoutUpdatedByNestedInput
@@ -2489,14 +2497,14 @@ export type UserUpdateToOneWithWhereWithoutUpdatedPostsInput = {
 
 export type UserUpdateWithoutUpdatedPostsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -2523,17 +2531,17 @@ export type UserUpdateWithoutUpdatedPostsInput = {
 export type UserUncheckedUpdateWithoutUpdatedPostsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2567,14 +2575,14 @@ export type UserUpdateToOneWithWhereWithoutDeletedPostsInput = {
 
 export type UserUpdateWithoutDeletedPostsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -2601,17 +2609,17 @@ export type UserUpdateWithoutDeletedPostsInput = {
 export type UserUncheckedUpdateWithoutDeletedPostsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2634,14 +2642,14 @@ export type UserUncheckedUpdateWithoutDeletedPostsInput = {
 
 export type UserCreateWithoutCreatedMediaInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -2668,17 +2676,17 @@ export type UserCreateWithoutCreatedMediaInput = {
 export type UserUncheckedCreateWithoutCreatedMediaInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2706,14 +2714,14 @@ export type UserCreateOrConnectWithoutCreatedMediaInput = {
 
 export type UserCreateWithoutDeletedMediaInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -2740,17 +2748,17 @@ export type UserCreateWithoutDeletedMediaInput = {
 export type UserUncheckedCreateWithoutDeletedMediaInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -2789,14 +2797,14 @@ export type UserUpdateToOneWithWhereWithoutCreatedMediaInput = {
 
 export type UserUpdateWithoutCreatedMediaInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -2823,17 +2831,17 @@ export type UserUpdateWithoutCreatedMediaInput = {
 export type UserUncheckedUpdateWithoutCreatedMediaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2867,14 +2875,14 @@ export type UserUpdateToOneWithWhereWithoutDeletedMediaInput = {
 
 export type UserUpdateWithoutDeletedMediaInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -2901,17 +2909,17 @@ export type UserUpdateWithoutDeletedMediaInput = {
 export type UserUncheckedUpdateWithoutDeletedMediaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -2934,14 +2942,14 @@ export type UserUncheckedUpdateWithoutDeletedMediaInput = {
 
 export type UserCreateWithoutBookmarksInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -2968,17 +2976,17 @@ export type UserCreateWithoutBookmarksInput = {
 export type UserUncheckedCreateWithoutBookmarksInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3006,14 +3014,14 @@ export type UserCreateOrConnectWithoutBookmarksInput = {
 
 export type UserCreateWithoutCreatedBookmarksInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -3040,17 +3048,17 @@ export type UserCreateWithoutCreatedBookmarksInput = {
 export type UserUncheckedCreateWithoutCreatedBookmarksInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3078,14 +3086,14 @@ export type UserCreateOrConnectWithoutCreatedBookmarksInput = {
 
 export type UserCreateWithoutUpdatedBookmarksInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -3112,17 +3120,17 @@ export type UserCreateWithoutUpdatedBookmarksInput = {
 export type UserUncheckedCreateWithoutUpdatedBookmarksInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3150,14 +3158,14 @@ export type UserCreateOrConnectWithoutUpdatedBookmarksInput = {
 
 export type UserCreateWithoutDeletedBookmarksInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -3184,17 +3192,17 @@ export type UserCreateWithoutDeletedBookmarksInput = {
 export type UserUncheckedCreateWithoutDeletedBookmarksInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3233,14 +3241,14 @@ export type UserUpdateToOneWithWhereWithoutBookmarksInput = {
 
 export type UserUpdateWithoutBookmarksInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -3267,17 +3275,17 @@ export type UserUpdateWithoutBookmarksInput = {
 export type UserUncheckedUpdateWithoutBookmarksInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3311,14 +3319,14 @@ export type UserUpdateToOneWithWhereWithoutCreatedBookmarksInput = {
 
 export type UserUpdateWithoutCreatedBookmarksInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -3345,17 +3353,17 @@ export type UserUpdateWithoutCreatedBookmarksInput = {
 export type UserUncheckedUpdateWithoutCreatedBookmarksInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3389,14 +3397,14 @@ export type UserUpdateToOneWithWhereWithoutUpdatedBookmarksInput = {
 
 export type UserUpdateWithoutUpdatedBookmarksInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -3423,17 +3431,17 @@ export type UserUpdateWithoutUpdatedBookmarksInput = {
 export type UserUncheckedUpdateWithoutUpdatedBookmarksInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3467,14 +3475,14 @@ export type UserUpdateToOneWithWhereWithoutDeletedBookmarksInput = {
 
 export type UserUpdateWithoutDeletedBookmarksInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -3501,17 +3509,17 @@ export type UserUpdateWithoutDeletedBookmarksInput = {
 export type UserUncheckedUpdateWithoutDeletedBookmarksInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3534,14 +3542,14 @@ export type UserUncheckedUpdateWithoutDeletedBookmarksInput = {
 
 export type UserCreateWithoutCreatedTopicsInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -3568,17 +3576,17 @@ export type UserCreateWithoutCreatedTopicsInput = {
 export type UserUncheckedCreateWithoutCreatedTopicsInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3606,14 +3614,14 @@ export type UserCreateOrConnectWithoutCreatedTopicsInput = {
 
 export type UserCreateWithoutUpdatedTopicsInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -3640,17 +3648,17 @@ export type UserCreateWithoutUpdatedTopicsInput = {
 export type UserUncheckedCreateWithoutUpdatedTopicsInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3678,14 +3686,14 @@ export type UserCreateOrConnectWithoutUpdatedTopicsInput = {
 
 export type UserCreateWithoutDeletedTopicsInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -3712,17 +3720,17 @@ export type UserCreateWithoutDeletedTopicsInput = {
 export type UserUncheckedCreateWithoutDeletedTopicsInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -3761,14 +3769,14 @@ export type UserUpdateToOneWithWhereWithoutCreatedTopicsInput = {
 
 export type UserUpdateWithoutCreatedTopicsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -3795,17 +3803,17 @@ export type UserUpdateWithoutCreatedTopicsInput = {
 export type UserUncheckedUpdateWithoutCreatedTopicsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3839,14 +3847,14 @@ export type UserUpdateToOneWithWhereWithoutUpdatedTopicsInput = {
 
 export type UserUpdateWithoutUpdatedTopicsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -3873,17 +3881,17 @@ export type UserUpdateWithoutUpdatedTopicsInput = {
 export type UserUncheckedUpdateWithoutUpdatedTopicsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3917,14 +3925,14 @@ export type UserUpdateToOneWithWhereWithoutDeletedTopicsInput = {
 
 export type UserUpdateWithoutDeletedTopicsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -3951,17 +3959,17 @@ export type UserUpdateWithoutDeletedTopicsInput = {
 export type UserUncheckedUpdateWithoutDeletedTopicsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -3984,14 +3992,14 @@ export type UserUncheckedUpdateWithoutDeletedTopicsInput = {
 
 export type UserCreateWithoutTopicMembersInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -4018,17 +4026,17 @@ export type UserCreateWithoutTopicMembersInput = {
 export type UserUncheckedCreateWithoutTopicMembersInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4067,14 +4075,14 @@ export type UserUpdateToOneWithWhereWithoutTopicMembersInput = {
 
 export type UserUpdateWithoutTopicMembersInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -4101,17 +4109,17 @@ export type UserUpdateWithoutTopicMembersInput = {
 export type UserUncheckedUpdateWithoutTopicMembersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4134,14 +4142,14 @@ export type UserUncheckedUpdateWithoutTopicMembersInput = {
 
 export type UserCreateWithoutLikesInput = {
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
@@ -4168,17 +4176,17 @@ export type UserCreateWithoutLikesInput = {
 export type UserUncheckedCreateWithoutLikesInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
   createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
@@ -4217,14 +4225,14 @@ export type UserUpdateToOneWithWhereWithoutLikesInput = {
 
 export type UserUpdateWithoutLikesInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -4251,17 +4259,17 @@ export type UserUpdateWithoutLikesInput = {
 export type UserUncheckedUpdateWithoutLikesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4285,58 +4293,58 @@ export type UserUncheckedUpdateWithoutLikesInput = {
 export type UserCreateManyCreatedByInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   updatedById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type UserCreateManyUpdatedByInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   deletedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type UserCreateManyDeletedByInput = {
   id?: number
   username: string
-  bio: string
+  bio?: string | null
   email: string
-  avatarUrl: string
+  avatarUrl?: string | null
   password: string
-  totpSecret: string
+  totpSecret?: string | null
   createdById?: number | null
   updatedById?: number | null
-  createdAt: Date | string
-  updatedAt: Date | string
-  deletedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
 }
 
 export type UserUpdateWithoutCreatedByInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -4363,16 +4371,16 @@ export type UserUpdateWithoutCreatedByInput = {
 export type UserUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4397,28 +4405,28 @@ export type UserUncheckedUpdateWithoutCreatedByInput = {
 export type UserUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUpdateWithoutUpdatedByInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -4445,16 +4453,16 @@ export type UserUpdateWithoutUpdatedByInput = {
 export type UserUncheckedUpdateWithoutUpdatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4479,28 +4487,28 @@ export type UserUncheckedUpdateWithoutUpdatedByInput = {
 export type UserUncheckedUpdateManyWithoutUpdatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type UserUpdateWithoutDeletedByInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
@@ -4527,16 +4535,16 @@ export type UserUpdateWithoutDeletedByInput = {
 export type UserUncheckedUpdateWithoutDeletedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
   createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
@@ -4561,16 +4569,16 @@ export type UserUncheckedUpdateWithoutDeletedByInput = {
 export type UserUncheckedUpdateManyWithoutDeletedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
-  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  avatarUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  totpSecret?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deletedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -4925,17 +4933,17 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     username: string
-    bio: string
+    bio: string | null
     email: string
-    avatarUrl: string
+    avatarUrl: string | null
     password: string
-    totpSecret: string
+    totpSecret: string | null
     createdById: number | null
     updatedById: number | null
     deletedById: number | null
     createdAt: Date
     updatedAt: Date
-    deletedAt: Date
+    deletedAt: Date | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }

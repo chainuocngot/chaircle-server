@@ -320,7 +320,7 @@ export type MediaCreateInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedMediaInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedMediaInput
@@ -333,7 +333,7 @@ export type MediaUncheckedCreateInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -371,7 +371,7 @@ export type MediaCreateManyInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -540,10 +540,6 @@ export type MediaUncheckedUpdateManyWithoutDeletedByNestedInput = {
   deleteMany?: Prisma.MediaScalarWhereInput | Prisma.MediaScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type EnumMediaTypeFieldUpdateOperationsInput = {
   set?: $Enums.MediaType
 }
@@ -580,7 +576,7 @@ export type MediaCreateWithoutCreatedByInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   deletedAt?: Date | string | null
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedMediaInput
   hlsStatus?: Prisma.HlsMediaStatusCreateNestedOneWithoutMediaInput
@@ -592,7 +588,7 @@ export type MediaUncheckedCreateWithoutCreatedByInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   deletedAt?: Date | string | null
   deletedById?: number | null
   hlsStatus?: Prisma.HlsMediaStatusUncheckedCreateNestedOneWithoutMediaInput
@@ -613,7 +609,7 @@ export type MediaCreateWithoutDeletedByInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedMediaInput
   hlsStatus?: Prisma.HlsMediaStatusCreateNestedOneWithoutMediaInput
@@ -625,7 +621,7 @@ export type MediaUncheckedCreateWithoutDeletedByInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
   deletedAt?: Date | string | null
   hlsStatus?: Prisma.HlsMediaStatusUncheckedCreateNestedOneWithoutMediaInput
@@ -692,7 +688,7 @@ export type MediaCreateWithoutHlsStatusInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedMediaInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedMediaInput
@@ -704,7 +700,7 @@ export type MediaUncheckedCreateWithoutHlsStatusInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -754,7 +750,7 @@ export type MediaCreateWithoutPostMediaInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   deletedAt?: Date | string | null
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedMediaInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedMediaInput
@@ -766,7 +762,7 @@ export type MediaUncheckedCreateWithoutPostMediaInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
   deletedAt?: Date | string | null
   deletedById?: number | null
@@ -817,7 +813,7 @@ export type MediaCreateManyCreatedByInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   deletedAt?: Date | string | null
   deletedById?: number | null
 }
@@ -827,7 +823,7 @@ export type MediaCreateManyDeletedByInput = {
   url: string
   content?: string | null
   type: $Enums.MediaType
-  createdAt: Date | string
+  createdAt?: Date | string
   createdById: number
   deletedAt?: Date | string | null
 }

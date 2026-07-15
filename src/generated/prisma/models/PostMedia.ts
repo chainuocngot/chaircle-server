@@ -221,7 +221,7 @@ export type PostMediaOrderByWithRelationInput = {
 
 export type PostMediaWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  mediaId_postId?: Prisma.PostMediaMediaIdPostIdCompoundUniqueInput
+  postId_mediaId?: Prisma.PostMediaPostIdMediaIdCompoundUniqueInput
   AND?: Prisma.PostMediaWhereInput | Prisma.PostMediaWhereInput[]
   OR?: Prisma.PostMediaWhereInput[]
   NOT?: Prisma.PostMediaWhereInput | Prisma.PostMediaWhereInput[]
@@ -229,7 +229,7 @@ export type PostMediaWhereUniqueInput = Prisma.AtLeast<{
   mediaId?: Prisma.IntFilter<"PostMedia"> | number
   post?: Prisma.XOR<Prisma.PostScalarRelationFilter, Prisma.PostWhereInput>
   media?: Prisma.XOR<Prisma.MediaScalarRelationFilter, Prisma.MediaWhereInput>
-}, "id" | "mediaId_postId">
+}, "id" | "postId_mediaId">
 
 export type PostMediaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -299,9 +299,9 @@ export type PostMediaOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type PostMediaMediaIdPostIdCompoundUniqueInput = {
-  mediaId: number
+export type PostMediaPostIdMediaIdCompoundUniqueInput = {
   postId: number
+  mediaId: number
 }
 
 export type PostMediaCountOrderByAggregateInput = {

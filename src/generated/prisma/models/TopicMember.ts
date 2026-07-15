@@ -264,7 +264,7 @@ export type TopicMemberScalarWhereWithAggregatesInput = {
 }
 
 export type TopicMemberCreateInput = {
-  createdAt: Date | string
+  createdAt?: Date | string
   topic: Prisma.TopicCreateNestedOneWithoutTopicMembersInput
   user: Prisma.UserCreateNestedOneWithoutTopicMembersInput
 }
@@ -273,7 +273,7 @@ export type TopicMemberUncheckedCreateInput = {
   id?: number
   topicId: number
   userId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type TopicMemberUpdateInput = {
@@ -293,7 +293,7 @@ export type TopicMemberCreateManyInput = {
   id?: number
   topicId: number
   userId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type TopicMemberUpdateManyMutationInput = {
@@ -440,14 +440,14 @@ export type TopicMemberUncheckedUpdateManyWithoutTopicNestedInput = {
 }
 
 export type TopicMemberCreateWithoutUserInput = {
-  createdAt: Date | string
+  createdAt?: Date | string
   topic: Prisma.TopicCreateNestedOneWithoutTopicMembersInput
 }
 
 export type TopicMemberUncheckedCreateWithoutUserInput = {
   id?: number
   topicId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type TopicMemberCreateOrConnectWithoutUserInput = {
@@ -487,14 +487,14 @@ export type TopicMemberScalarWhereInput = {
 }
 
 export type TopicMemberCreateWithoutTopicInput = {
-  createdAt: Date | string
+  createdAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTopicMembersInput
 }
 
 export type TopicMemberUncheckedCreateWithoutTopicInput = {
   id?: number
   userId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type TopicMemberCreateOrConnectWithoutTopicInput = {
@@ -526,7 +526,7 @@ export type TopicMemberUpdateManyWithWhereWithoutTopicInput = {
 export type TopicMemberCreateManyUserInput = {
   id?: number
   topicId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type TopicMemberUpdateWithoutUserInput = {
@@ -549,7 +549,7 @@ export type TopicMemberUncheckedUpdateManyWithoutUserInput = {
 export type TopicMemberCreateManyTopicInput = {
   id?: number
   userId: number
-  createdAt: Date | string
+  createdAt?: Date | string
 }
 
 export type TopicMemberUpdateWithoutTopicInput = {
