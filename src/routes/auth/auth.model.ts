@@ -1,7 +1,7 @@
 import { UserSchema } from 'src/shared/models/user.model';
 import z from 'zod';
 
-//Register
+// Register
 export const RegisterBodySchema = UserSchema.pick({
   email: true,
   password: true,
@@ -26,5 +26,15 @@ export const RegisterResSchema = z.object({
   refresh_token: z.jwt(),
 });
 
+// Login
+export const LoginBodySchema = UserSchema.pick({
+  email: true,
+  password: true,
+});
+
+export const LoginResSchema = RegisterResSchema;
+
 export type RegisterBodyType = z.infer<typeof RegisterBodySchema>;
 export type RegisterResType = z.infer<typeof RegisterResSchema>;
+export type LoginBodyType = z.infer<typeof LoginBodySchema>;
+export type LoginResType = z.infer<typeof LoginResSchema>;
