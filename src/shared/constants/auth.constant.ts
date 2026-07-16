@@ -7,3 +7,13 @@ export const AuthType = {
 } as const;
 
 export type TypeOfAuthType = (typeof AuthType)[keyof typeof AuthType];
+
+export const VerificationCodeType = {
+  Register: 'REGISTER',
+  Login: 'LOGIN',
+  ChangePassword: 'CHANGE_PASSWORD',
+  Disable2FA: 'DISABLE_2FA',
+} as const;
+
+export type TypeOfVerificationCodeType =
+  (typeof VerificationCodeType)[keyof typeof VerificationCodeType];

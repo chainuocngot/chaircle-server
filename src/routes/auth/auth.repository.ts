@@ -45,4 +45,20 @@ export class AuthRepository {
       where,
     });
   }
+
+  storeVerificationCode(payload: Prisma.VerificationCodeUncheckedCreateInput) {
+    return this.prismaService.verificationCode.upsert({
+      create: payload,
+      where: {
+        email_type: {
+          email: payload.email,
+          type: payload.type,
+        },
+      },
+      update: {
+        code: payload.code,
+        expiresAt: payload.expiresAt,
+      },
+    });
+  }
 }

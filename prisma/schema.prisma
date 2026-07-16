@@ -87,7 +87,7 @@ model VerificationCode {
 
   createdAt DateTime @default(now()) @map("created_at")
 
-  @@index([email, type])
+  @@unique([email, type])
   @@index([expiresAt])
   @@map("verification_codes")
 }

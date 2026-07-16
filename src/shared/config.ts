@@ -21,6 +21,8 @@ const envSchema = z.object({
   REFRESH_TOKEN_SECRET: z.string(),
   REFRESH_TOKEN_EXPIRES_IN: z.string(),
   TOKEN_ALGORITHM: z.string(),
+  API_KEY_RESEND: z.string(),
+  OTP_EXPIRES_IN: z.string(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

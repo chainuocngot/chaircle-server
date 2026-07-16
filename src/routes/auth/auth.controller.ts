@@ -10,6 +10,8 @@ import {
   RefreshTokenResDto,
   RegisterBodyDto,
   RegisterResDto,
+  SendOtpBodyDto,
+  SendOtpResDto,
 } from 'src/routes/auth/auth.dto';
 import { AuthService } from 'src/routes/auth/auth.service';
 import { ActiveUser } from 'src/shared/decorators/active-user.decorator';
@@ -61,5 +63,13 @@ export class AuthController {
   @ZodSerializerDto(RefreshTokenResDto)
   refreshToken(@Body() body: RefreshTokenBodyDto) {
     return this.authService.refreshToken(body);
+  }
+
+  @Post('send-otp')
+  @IsPublic()
+  @HttpCode(HttpStatus.CREATED)
+  @ZodSerializerDto(SendOtpResDto)
+  sendOtp(@Body() body: SendOtpBodyDto) {
+    return this.authService.sendOtp(body);
   }
 }

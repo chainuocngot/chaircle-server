@@ -1,8 +1,11 @@
 import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { addMilliseconds } from 'date-fns';
+import ms, { StringValue } from 'ms';
 import {
   AccountNotFoundException,
   EmailAlreadyInUsedException,
   RefreshTokenNotFoundException,
+  SendOtpFailedException,
   UsernameAlreadyTakenException,
   WrongPasswordException,
 } from 'src/routes/auth/auth.error';
@@ -15,12 +18,18 @@ import {
   RefreshTokenResType,
   RegisterBodyType,
   RegisterResType,
+  SendOtpBodyType,
+  SendOtpResType,
 } from 'src/routes/auth/auth.model';
 import { AuthRepository } from 'src/routes/auth/auth.repository';
+import envConfig from 'src/shared/config';
+import { VerificationCodeType } from 'src/shared/constants/auth.constant';
 import { UserType } from 'src/shared/models/user.model';
+import { EmailService } from 'src/shared/services/email.service';
 import { HashingService } from 'src/shared/services/hashing.service';
 import { TokenService } from 'src/shared/services/token.service';
-import { isNotFoundPrismaError } from 'src/shared/utils/prisma';
+import { generateOtp } from 'src/shared/utils/code.util';
+import { isNotFoundPrismaError } from 'src/shared/utils/prisma.util';
 
 @Injectable()
 export class AuthService {
@@ -28,6 +37,7 @@ export class AuthService {
     private readonly authRepository: AuthRepository,
     private readonly tokenService: TokenService,
     private readonly hashingService: HashingService,
+    private readonly emailService: EmailService,
   ) {}
 
   async register({
@@ -237,5 +247,49 @@ export class AuthService {
 
       throw new UnauthorizedException();
     }
+  }
+
+  async sendOtp(body: SendOtpBodyType): Promise<SendOtpResType> {
+    // 1. Kiểm tra trước dữ liệu User
+    const user = await this.authRepository.findUser({
+      email: body.email,
+    });
+
+    if (user && body.type === VerificationCodeType.Register) {
+      throw EmailAlreadyInUsedException;
+    }
+
+    if (
+      !user &&
+      (body.type === VerificationCodeType.Disable2FA ||
+        body.type === VerificationCodeType.Login ||
+        body.type === VerificationCodeType.ChangePassword)
+    ) {
+      throw AccountNotFoundException;
+    }
+
+    // 2. Tạo & lưu OTP vào DB
+    const otpCode = generateOtp();
+    const expiresAt = addMilliseconds(
+      new Date(),
+      ms(envConfig.OTP_EXPIRES_IN as StringValue),
+    ).toISOString();
+
+    const { error } = await this.emailService.sendOtp(body.email, otpCode);
+
+    if (error) {
+      throw SendOtpFailedException;
+    }
+
+    await this.authRepository.storeVerificationCode({
+      code: otpCode,
+      email: body.email,
+      expiresAt,
+      type: body.type,
+    });
+
+    return {
+      message: 'Success.SendOtp',
+    };
   }
 }

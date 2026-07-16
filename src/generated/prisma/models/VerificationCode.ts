@@ -236,6 +236,7 @@ export type VerificationCodeOrderByWithRelationInput = {
 
 export type VerificationCodeWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  email_type?: Prisma.VerificationCodeEmailTypeCompoundUniqueInput
   AND?: Prisma.VerificationCodeWhereInput | Prisma.VerificationCodeWhereInput[]
   OR?: Prisma.VerificationCodeWhereInput[]
   NOT?: Prisma.VerificationCodeWhereInput | Prisma.VerificationCodeWhereInput[]
@@ -244,7 +245,7 @@ export type VerificationCodeWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.EnumVerificationCodeTypeFilter<"VerificationCode"> | $Enums.VerificationCodeType
   expiresAt?: Prisma.DateTimeFilter<"VerificationCode"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"VerificationCode"> | Date | string
-}, "id">
+}, "id" | "email_type">
 
 export type VerificationCodeOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -330,6 +331,11 @@ export type VerificationCodeUncheckedUpdateManyInput = {
   type?: Prisma.EnumVerificationCodeTypeFieldUpdateOperationsInput | $Enums.VerificationCodeType
   expiresAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type VerificationCodeEmailTypeCompoundUniqueInput = {
+  email: string
+  type: $Enums.VerificationCodeType
 }
 
 export type VerificationCodeCountOrderByAggregateInput = {

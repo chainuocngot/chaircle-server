@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   NotFoundException,
   UnauthorizedException,
@@ -18,3 +19,5 @@ export const WrongPasswordException = new UnprocessableEntityException('Error.Wr
 export const RefreshTokenNotFoundException = new UnauthorizedException(
   'Error.RefreshTokenNotFound',
 );
+
+export const SendOtpFailedException = new BadRequestException('Error.SendOtpFailedException');

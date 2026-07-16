@@ -1,3 +1,4 @@
+import { VerificationCodeType } from 'src/shared/constants/auth.constant';
 import { MessageResSchema } from 'src/shared/models/response.model';
 import { UserSchema } from 'src/shared/models/user.model';
 import z from 'zod';
@@ -53,6 +54,17 @@ export const RefreshTokenBodySchema = z
 
 export const RefreshTokenResSchema = RegisterResSchema;
 
+// Send OTP
+export const SendOtpBodySchema = UserSchema.pick({
+  email: true,
+})
+  .extend({
+    type: z.enum(VerificationCodeType),
+  })
+  .strict();
+
+export const SendOtpResSchema = MessageResSchema;
+
 export type RegisterBodyType = z.infer<typeof RegisterBodySchema>;
 export type RegisterResType = z.infer<typeof RegisterResSchema>;
 export type LoginBodyType = z.infer<typeof LoginBodySchema>;
@@ -61,3 +73,5 @@ export type LogoutBodyType = z.infer<typeof LogoutBodySchema>;
 export type LogoutResType = z.infer<typeof LogoutResSchema>;
 export type RefreshTokenBodyType = z.infer<typeof RefreshTokenBodySchema>;
 export type RefreshTokenResType = z.infer<typeof RefreshTokenResSchema>;
+export type SendOtpBodyType = z.infer<typeof SendOtpBodySchema>;
+export type SendOtpResType = z.infer<typeof SendOtpResSchema>;
