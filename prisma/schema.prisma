@@ -51,8 +51,8 @@ model User {
   deletedBy    User?  @relation("UserDeletedBy", fields: [deletedById], references: [id], onDelete: SetNull, onUpdate: NoAction)
   deletedUsers User[] @relation("UserDeletedBy")
 
-  createdAt DateTime  @map("created_at") @default(now())
-  updatedAt DateTime  @map("updated_at") @updatedAt
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
   @@index([deletedAt])
@@ -70,7 +70,7 @@ model RefreshToken {
   deviceId Int    @map("device_id")
   device   Device @relation(fields: [deviceId], references: [id])
 
-  createdAt DateTime @map("created_at") @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@index([userId])
   @@index([deviceId])
@@ -85,7 +85,7 @@ model VerificationCode {
   type      VerificationCodeType
   expiresAt DateTime             @map("expires_at")
 
-  createdAt DateTime @map("created_at") @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@index([email, type])
   @@index([expiresAt])
@@ -101,8 +101,8 @@ model Device {
   userId Int  @map("user_id")
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt  DateTime @map("created_at") @default(now())
-  lastActive DateTime @map("last_active") @updatedAt
+  createdAt  DateTime @default(now()) @map("created_at")
+  lastActive DateTime @updatedAt @map("last_active")
 
   refreshTokens RefreshToken[]
 
@@ -118,11 +118,11 @@ model Post {
   topicId Int?   @map("topic_id")
   topic   Topic? @relation(fields: [topicId], references: [id])
 
-  createdAt   DateTime @map("created_at") @default(now())
+  createdAt   DateTime @default(now()) @map("created_at")
   createdById Int      @map("created_by_id")
   createdBy   User     @relation("PostCreatedBy", fields: [createdById], references: [id])
 
-  updatedAt   DateTime @map("updated_at") @updatedAt
+  updatedAt   DateTime @updatedAt @map("updated_at")
   updatedById Int?     @map("updated_by_id")
   updatedBy   User?    @relation("PostUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
 
@@ -147,7 +147,7 @@ model Media {
   content String?   @db.VarChar(500)
   type    MediaType
 
-  createdAt   DateTime @map("created_at") @default(now())
+  createdAt   DateTime @default(now()) @map("created_at")
   createdById Int      @map("created_by_id")
   createdBy   User     @relation("MediaCreatedBy", fields: [createdById], references: [id])
 
@@ -168,8 +168,8 @@ model HlsMediaStatus {
   media   Media              @relation(fields: [mediaId], references: [id], onDelete: Cascade)
   status  HlsMediaStatusEnum
 
-  createdAt DateTime @map("created_at") @default(now())
-  updatedAt DateTime @map("updated_at") @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("hls_media_status")
 }
@@ -196,11 +196,11 @@ model Bookmark {
   postId Int  @map("post_id")
   post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
-  createdAt   DateTime @map("created_at") @default(now())
+  createdAt   DateTime @default(now()) @map("created_at")
   createdById Int      @map("created_by_id")
   createdBy   User     @relation("BookmarkCreatedBy", fields: [createdById], references: [id])
 
-  updatedAt   DateTime @map("updated_at") @updatedAt
+  updatedAt   DateTime @updatedAt @map("updated_at")
   updatedById Int?     @map("updated_by_id")
   updatedBy   User?    @relation("BookmarkUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
 
@@ -217,11 +217,11 @@ model Topic {
   name        String @unique @db.VarChar(200)
   memberCount Int    @default(0) @map("member_count")
 
-  createdAt   DateTime @map("created_at") @default(now())
+  createdAt   DateTime @default(now()) @map("created_at")
   createdById Int      @map("created_by_id")
   createdBy   User     @relation("TopicCreatedBy", fields: [createdById], references: [id])
 
-  updatedAt   DateTime @map("updated_at") @updatedAt
+  updatedAt   DateTime @updatedAt @map("updated_at")
   updatedById Int?     @map("updated_by_id")
   updatedBy   User?    @relation("TopicUpdatedBy", fields: [updatedById], references: [id], onDelete: SetNull)
 
@@ -246,7 +246,7 @@ model TopicMember {
   userId Int  @map("user_id")
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @map("created_at") @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@unique([topicId, userId])
   @@index([userId])
@@ -262,7 +262,7 @@ model Like {
   postId Int  @map("post_id")
   post   Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @map("created_at") @default(now())
+  createdAt DateTime @default(now()) @map("created_at")
 
   @@unique([postId, userId])
   @@index([userId])

@@ -1,19 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import {
   AccountNotFoundException,
   EmailAlreadyInUsedException,
+  RefreshTokenNotFoundException,
   UsernameAlreadyTakenException,
   WrongPasswordException,
 } from 'src/routes/auth/auth.error';
 import {
   LoginBodyType,
   LoginResType,
+  LogoutBodyType,
+  LogoutResType,
   RegisterBodyType,
   RegisterResType,
 } from 'src/routes/auth/auth.model';
 import { AuthRepository } from 'src/routes/auth/auth.repository';
+import { UserType } from 'src/shared/models/user.model';
 import { HashingService } from 'src/shared/services/hashing.service';
 import { TokenService } from 'src/shared/services/token.service';
+import { isNotFoundPrismaError } from 'src/shared/utils/prisma';
 
 @Injectable()
 export class AuthService {
@@ -150,5 +155,41 @@ export class AuthService {
       access_token: accessToken,
       refresh_token: refreshToken,
     };
+  }
+
+  async logout({
+    userId,
+    body,
+  }: {
+    userId: UserType['id'];
+    body: LogoutBodyType;
+  }): Promise<LogoutResType> {
+    try {
+      // 1. Xóa Refresh token trong DB
+      await this.tokenService.verifyRefreshToken(body.refresh_token);
+      const deletedRefreshToken = await this.authRepository.deleteRefreshToken({
+        token: body.refresh_token,
+        userId,
+      });
+
+      // 2. Cập nhật Device trong DB
+      await this.authRepository.updateDevice(
+        {
+          id: deletedRefreshToken.deviceId,
+        },
+        {
+          isActive: false,
+        },
+      );
+
+      return {
+        message: 'Success.Logout',
+      };
+    } catch (error) {
+      if (isNotFoundPrismaError(error)) {
+        throw RefreshTokenNotFoundException;
+      }
+      throw new UnauthorizedException();
+    }
   }
 }

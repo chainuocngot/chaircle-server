@@ -1,4 +1,9 @@
-import { ConflictException, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
+import {
+  ConflictException,
+  NotFoundException,
+  UnauthorizedException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 
 export const EmailAlreadyInUsedException = new ConflictException('Error.EmailAlreadyInUsed');
 
@@ -9,3 +14,7 @@ export const AccountNotFoundException = new NotFoundException('Error.AccountNotF
 export const UserNotFoundException = new NotFoundException('Error.UserNotFound');
 
 export const WrongPasswordException = new UnprocessableEntityException('Error.WrongPassword');
+
+export const RefreshTokenNotFoundException = new UnauthorizedException(
+  'Error.RefreshTokenNotFound',
+);

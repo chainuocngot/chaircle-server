@@ -32,4 +32,17 @@ export class AuthRepository {
       data: payload,
     });
   }
+
+  updateDevice(where: Prisma.DeviceWhereUniqueInput, data: Prisma.DeviceUncheckedUpdateInput) {
+    return this.prismaService.device.update({
+      where,
+      data,
+    });
+  }
+
+  deleteRefreshToken(where: Prisma.RefreshTokenWhereUniqueInput) {
+    return this.prismaService.refreshToken.delete({
+      where,
+    });
+  }
 }

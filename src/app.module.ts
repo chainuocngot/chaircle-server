@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { ZodSerializerInterceptor } from 'nestjs-zod';
 import { HttpExceptionFilter } from 'src/filters/http-exception.filter';
+import { AccessTokenGuard } from 'src/guards/access-token.guard';
+import { AuthGuard } from 'src/guards/auth.guard';
 import { ZodValidationPipe } from 'src/pipes/zod.pipe';
 import { SharedModule } from 'src/shared/shared.module';
 
@@ -19,6 +21,11 @@ import { AuthModule } from './routes/auth/auth.module';
   ],
   controllers: [AppController],
   providers: [
+    AccessTokenGuard,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
     {
       provide: APP_PIPE,
       useClass: ZodValidationPipe,
