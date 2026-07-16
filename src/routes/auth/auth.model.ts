@@ -44,9 +44,20 @@ export const LogoutBodySchema = z
 
 export const LogoutResSchema = MessageResSchema;
 
+// Refresh Token
+export const RefreshTokenBodySchema = z
+  .object({
+    refresh_token: z.jwt(),
+  })
+  .strict();
+
+export const RefreshTokenResSchema = RegisterResSchema;
+
 export type RegisterBodyType = z.infer<typeof RegisterBodySchema>;
 export type RegisterResType = z.infer<typeof RegisterResSchema>;
 export type LoginBodyType = z.infer<typeof LoginBodySchema>;
 export type LoginResType = z.infer<typeof LoginResSchema>;
 export type LogoutBodyType = z.infer<typeof LogoutBodySchema>;
 export type LogoutResType = z.infer<typeof LogoutResSchema>;
+export type RefreshTokenBodyType = z.infer<typeof RefreshTokenBodySchema>;
+export type RefreshTokenResType = z.infer<typeof RefreshTokenResSchema>;

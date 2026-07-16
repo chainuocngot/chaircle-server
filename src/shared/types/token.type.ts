@@ -10,6 +10,7 @@ export type AccessTokenPayload = CreateAccessTokenPayload & {
 
 export type CreateRefreshTokenPayload = {
   userId: number;
+  exp?: number;
 };
 
 export type RefreshTokenPayload = CreateRefreshTokenPayload & {

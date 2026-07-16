@@ -4,7 +4,7 @@ import z from 'zod';
 export const RefreshTokenSchema = z.object({
   id: idZod,
   token: z.string().max(1000).trim(),
-  exp: dateTimeZod,
+  expiresAt: dateTimeZod,
 
   userId: idZod,
   deviceId: idZod,

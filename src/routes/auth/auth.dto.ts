@@ -4,6 +4,8 @@ import {
   LoginResSchema,
   LogoutBodySchema,
   LogoutResSchema,
+  RefreshTokenBodySchema,
+  RefreshTokenResSchema,
   RegisterBodySchema,
   RegisterResSchema,
 } from 'src/routes/auth/auth.model';
@@ -19,3 +21,7 @@ export class LoginResDto extends createZodDto(LoginResSchema) {}
 export class LogoutBodyDto extends createZodDto(LogoutBodySchema) {}
 
 export class LogoutResDto extends createZodDto(LogoutResSchema) {}
+
+export class RefreshTokenBodyDto extends createZodDto(RefreshTokenBodySchema) {}
+
+export class RefreshTokenResDto extends createZodDto(RefreshTokenResSchema) {}

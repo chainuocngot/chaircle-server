@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import {
   AccountNotFoundException,
   EmailAlreadyInUsedException,
@@ -11,6 +11,8 @@ import {
   LoginResType,
   LogoutBodyType,
   LogoutResType,
+  RefreshTokenBodyType,
+  RefreshTokenResType,
   RegisterBodyType,
   RegisterResType,
 } from 'src/routes/auth/auth.model';
@@ -88,7 +90,7 @@ export class AuthService {
     const decodedRefreshToken = await this.tokenService.verifyRefreshToken(refreshToken);
     await this.authRepository.storeRefreshToken({
       deviceId: device.id,
-      exp: new Date(decodedRefreshToken.exp * 1000),
+      expiresAt: new Date(decodedRefreshToken.exp * 1000),
       token: refreshToken,
       userId: user.id,
     });
@@ -146,7 +148,7 @@ export class AuthService {
     const decodedRefreshToken = await this.tokenService.verifyRefreshToken(refreshToken);
     await this.authRepository.storeRefreshToken({
       deviceId: device.id,
-      exp: new Date(decodedRefreshToken.exp * 1000),
+      expiresAt: new Date(decodedRefreshToken.exp * 1000),
       token: refreshToken,
       userId: user.id,
     });
@@ -189,6 +191,50 @@ export class AuthService {
       if (isNotFoundPrismaError(error)) {
         throw RefreshTokenNotFoundException;
       }
+      throw new UnauthorizedException();
+    }
+  }
+
+  async refreshToken(body: RefreshTokenBodyType): Promise<RefreshTokenResType> {
+    try {
+      // 1. Verify và xóa refresh token cũ từ body
+      const decodedRefreshToken = await this.tokenService.verifyRefreshToken(body.refresh_token);
+      const deletedOldRefreshToken = await this.authRepository.deleteRefreshToken({
+        token: body.refresh_token,
+      });
+
+      if (deletedOldRefreshToken === null) {
+        throw RefreshTokenNotFoundException;
+      }
+
+      // 2. Sign tokens
+      const $signAccessToken = this.tokenService.signAccessToken({
+        userId: deletedOldRefreshToken.userId,
+        deviceId: deletedOldRefreshToken.deviceId,
+      });
+      const $signRefreshToken = this.tokenService.signRefreshToken({
+        userId: deletedOldRefreshToken.userId,
+        exp: decodedRefreshToken.exp,
+      });
+      const [accessToken, refreshToken] = await Promise.all([$signAccessToken, $signRefreshToken]);
+
+      // 3. Lưu Refresh token mới vào DB
+      await this.authRepository.storeRefreshToken({
+        deviceId: deletedOldRefreshToken.deviceId,
+        expiresAt: new Date(decodedRefreshToken.exp * 1000),
+        token: refreshToken,
+        userId: deletedOldRefreshToken.userId,
+      });
+
+      return {
+        access_token: accessToken,
+        refresh_token: refreshToken,
+      };
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
       throw new UnauthorizedException();
     }
   }

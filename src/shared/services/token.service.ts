@@ -32,14 +32,24 @@ export class TokenService {
   }
 
   signRefreshToken(payload: CreateRefreshTokenPayload): Promise<string> {
-    return this.jwtService.signAsync(
-      { ...payload, uuid: uuidv4() },
-      {
-        secret: envConfig.REFRESH_TOKEN_SECRET,
-        expiresIn: envConfig.REFRESH_TOKEN_EXPIRES_IN as JwtSignOptions['expiresIn'],
-        algorithm: envConfig.TOKEN_ALGORITHM as JwtSignOptions['algorithm'],
-      },
-    );
+    if (payload.exp) {
+      return this.jwtService.signAsync(
+        { ...payload, uuid: uuidv4() },
+        {
+          secret: envConfig.REFRESH_TOKEN_SECRET,
+          algorithm: envConfig.TOKEN_ALGORITHM as JwtSignOptions['algorithm'],
+        },
+      );
+    } else {
+      return this.jwtService.signAsync(
+        { ...payload, uuid: uuidv4() },
+        {
+          secret: envConfig.REFRESH_TOKEN_SECRET,
+          expiresIn: envConfig.REFRESH_TOKEN_EXPIRES_IN as JwtSignOptions['expiresIn'],
+          algorithm: envConfig.TOKEN_ALGORITHM as JwtSignOptions['algorithm'],
+        },
+      );
+    }
   }
 
   verifyRefreshToken(token: string): Promise<RefreshTokenPayload> {

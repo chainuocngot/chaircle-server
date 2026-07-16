@@ -6,6 +6,8 @@ import {
   LoginResDto,
   LogoutBodyDto,
   LogoutResDto,
+  RefreshTokenBodyDto,
+  RefreshTokenResDto,
   RegisterBodyDto,
   RegisterResDto,
 } from 'src/routes/auth/auth.dto';
@@ -51,5 +53,13 @@ export class AuthController {
       userId,
       body,
     });
+  }
+
+  @Post('refresh-token')
+  @IsPublic()
+  @HttpCode(HttpStatus.OK)
+  @ZodSerializerDto(RefreshTokenResDto)
+  refreshToken(@Body() body: RefreshTokenBodyDto) {
+    return this.authService.refreshToken(body);
   }
 }
