@@ -21,3 +21,7 @@ export const RefreshTokenNotFoundException = new UnauthorizedException(
 );
 
 export const SendOtpFailedException = new BadRequestException('Error.SendOtpFailedException');
+
+export const InvalidOtpCodeException = new UnauthorizedException('Error.InvalidOtpCodeException');
+
+export const ExpiredOtpCodeException = new UnauthorizedException('Error.ExpiredOtpCodeException');

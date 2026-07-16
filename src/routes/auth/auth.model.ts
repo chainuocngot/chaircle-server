@@ -11,6 +11,7 @@ export const RegisterBodySchema = UserSchema.pick({
 })
   .extend({
     confirm_password: z.string(),
+    otp_code: z.string(),
   })
   .superRefine((body, ctx) => {
     if (body.confirm_password !== body.password) {

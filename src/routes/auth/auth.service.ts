@@ -4,6 +4,8 @@ import ms, { StringValue } from 'ms';
 import {
   AccountNotFoundException,
   EmailAlreadyInUsedException,
+  ExpiredOtpCodeException,
+  InvalidOtpCodeException,
   RefreshTokenNotFoundException,
   SendOtpFailedException,
   UsernameAlreadyTakenException,
@@ -23,7 +25,10 @@ import {
 } from 'src/routes/auth/auth.model';
 import { AuthRepository } from 'src/routes/auth/auth.repository';
 import envConfig from 'src/shared/config';
-import { VerificationCodeType } from 'src/shared/constants/auth.constant';
+import {
+  TypeOfVerificationCodeType,
+  VerificationCodeType,
+} from 'src/shared/constants/auth.constant';
 import { UserType } from 'src/shared/models/user.model';
 import { EmailService } from 'src/shared/services/email.service';
 import { HashingService } from 'src/shared/services/hashing.service';
@@ -49,7 +54,14 @@ export class AuthService {
     userAgent: string;
     body: RegisterBodyType;
   }): Promise<RegisterResType> {
-    // 1. Kiểm tra email/username đã được đăng ký chưa
+    // 1. Kiểm tra OTP code gửi tới email
+    await this._validateVerificationCode({
+      email: body.email,
+      code: body.otp_code,
+      type: VerificationCodeType.Register,
+    });
+
+    // 2. Kiểm tra email/username đã được đăng ký chưa
     const userWithPayload = await this.authRepository.findUser({
       OR: [
         { email: body.email },
@@ -68,17 +80,17 @@ export class AuthService {
       throw UsernameAlreadyTakenException;
     }
 
-    // 2. Hash password
+    // 3. Hash password
     const hashedPassword = await this.hashingService.hash(body.password);
 
-    // 3. Tạo User
+    // 4. Tạo User
     const user = await this.authRepository.createUser({
       email: body.email,
       username: body.username,
       password: hashedPassword,
     });
 
-    // 4. Tạo Device
+    // 5. Tạo Device
     const device = await this.authRepository.createDevice({
       ip,
       userAgent,
@@ -86,7 +98,7 @@ export class AuthService {
       isActive: true,
     });
 
-    // 5. Sign tokens
+    // 6. Sign tokens
     const $signAccessToken = this.tokenService.signAccessToken({
       userId: user.id,
       deviceId: device.id,
@@ -96,7 +108,7 @@ export class AuthService {
     });
     const [accessToken, refreshToken] = await Promise.all([$signAccessToken, $signRefreshToken]);
 
-    // 6. Lưu Refresh token vào DB
+    // 7. Lưu Refresh token vào DB
     const decodedRefreshToken = await this.tokenService.verifyRefreshToken(refreshToken);
     await this.authRepository.storeRefreshToken({
       deviceId: device.id,
@@ -291,5 +303,32 @@ export class AuthService {
     return {
       message: 'Success.SendOtp',
     };
+  }
+
+  private async _validateVerificationCode({
+    email,
+    type,
+    code,
+  }: {
+    email: string;
+    type: TypeOfVerificationCodeType;
+    code: string;
+  }) {
+    const verificationCode = await this.authRepository.findVerificationCode({
+      email_type: {
+        email,
+        type,
+      },
+    });
+
+    if (verificationCode === null || verificationCode.code !== code) {
+      throw InvalidOtpCodeException;
+    }
+
+    if (new Date(verificationCode.expiresAt) < new Date()) {
+      throw ExpiredOtpCodeException;
+    }
+
+    return verificationCode;
   }
 }
