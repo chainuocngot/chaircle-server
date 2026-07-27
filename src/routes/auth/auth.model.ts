@@ -86,6 +86,18 @@ export const ResetPasswordBodySchema = UserSchema.pick({
 
 export const ResetPasswordResSchema = MessageResSchema;
 
+export const ChangePasswordBodySchema = UserSchema.pick({
+  password: true,
+})
+  .extend({
+    current_password: z.string(),
+    confirm_password: z.string(),
+  })
+  .superRefine(validatePasswordMatch)
+  .strict();
+
+export const ChangePasswordResSchema = MessageResSchema;
+
 export type RegisterBodyType = z.infer<typeof RegisterBodySchema>;
 export type RegisterResType = z.infer<typeof RegisterResSchema>;
 export type LoginBodyType = z.infer<typeof LoginBodySchema>;
@@ -100,3 +112,5 @@ export type VerifyForgotPasswordOtpBodyType = z.infer<typeof VerifyForgotPasswor
 export type ResetPasswordQueryType = z.infer<typeof ResetPasswordQuerySchema>;
 export type ResetPasswordBodyType = z.infer<typeof ResetPasswordBodySchema>;
 export type ResetPasswordResType = z.infer<typeof ResetPasswordResSchema>;
+export type ChangePasswordBodyType = z.infer<typeof ChangePasswordBodySchema>;
+export type ChangePasswordResType = z.infer<typeof ChangePasswordResSchema>;

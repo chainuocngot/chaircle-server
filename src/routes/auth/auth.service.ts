@@ -11,6 +11,8 @@ import {
   WrongPasswordException,
 } from 'src/routes/auth/auth.error';
 import {
+  ChangePasswordBodyType,
+  ChangePasswordResType,
   LoginBodyType,
   LoginResType,
   LogoutBodyType,
@@ -375,6 +377,45 @@ export class AuthService {
 
     return {
       message: 'Success.ResetPassword',
+    };
+  }
+
+  async changePassword(
+    userId: UserType['id'],
+    body: ChangePasswordBodyType,
+  ): Promise<ChangePasswordResType> {
+    // 1. Tìm account với userId hiện tại
+    const user = await this.sharedUserRepository.findUniqueUser({
+      id: userId,
+      deletedAt: null,
+    });
+
+    if (user === null) {
+      throw AccountNotFoundException;
+    }
+
+    // 2. Kiểm tra mật khẩu
+    const isMatchPassword = await this.hashingService.compare(body.current_password, user.password);
+    if (!isMatchPassword) {
+      throw WrongPasswordException;
+    }
+
+    // 3. Hash mật khẩu
+    const hashedPassword = await this.hashingService.hash(body.password);
+
+    // 4. Đổi mật khẩu
+    await this.sharedUserRepository.updateUniqueUser(
+      {
+        id: userId,
+        deletedAt: null,
+      },
+      {
+        password: hashedPassword,
+      },
+    );
+
+    return {
+      message: 'Success.ChangePassword',
     };
   }
 

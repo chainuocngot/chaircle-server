@@ -2,6 +2,8 @@ import { Body, Controller, HttpCode, HttpStatus, Ip, Post, Put, Query, Res } fro
 import { type Response } from 'express';
 import { ZodSerializerDto } from 'nestjs-zod';
 import {
+  ChangePasswordBodyDto,
+  ChangePasswordResDto,
   LoginBodyDto,
   LoginResDto,
   LogoutBodyDto,
@@ -94,5 +96,15 @@ export class AuthController {
   @ZodSerializerDto(ResetPasswordResDto)
   resetPassword(@Query() query: ResetPasswordQueryDto, @Body() body: ResetPasswordBodyDto) {
     return this.authService.resetPassword(query, body);
+  }
+
+  @Put('change-password')
+  @HttpCode(HttpStatus.OK)
+  @ZodSerializerDto(ChangePasswordResDto)
+  changePassword(
+    @ActiveUser('userId') userId: UserType['id'],
+    @Body() body: ChangePasswordBodyDto,
+  ) {
+    return this.authService.changePassword(userId, body);
   }
 }
