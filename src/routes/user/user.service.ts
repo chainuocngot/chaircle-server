@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { GetMeResType } from 'src/routes/user/user.model';
+import { GetMeResType, UpdateMeBodyType, UpdateMeResType } from 'src/routes/user/user.model';
 import { UserType } from 'src/shared/models/user.model';
 import { SharedUserRepository } from 'src/shared/repositories/shared-user.repository';
-import { UserNotFoundException } from 'src/shared/shared.error';
+import { UsernameAlreadyTakenException, UserNotFoundException } from 'src/shared/shared.error';
+import { isUniqueConstraintPrismaError } from 'src/shared/utils/prisma.util';
 
 @Injectable()
 export class UserService {
@@ -18,5 +19,32 @@ export class UserService {
     }
 
     return user;
+  }
+
+  async updateMe(userId: UserType['id'], body: UpdateMeBodyType): Promise<UpdateMeResType> {
+    try {
+      const me = await this.sharedUserRepository.findUniqueUser({
+        id: userId,
+        deletedAt: null,
+      });
+
+      if (me === null) {
+        throw UserNotFoundException;
+      }
+
+      return await this.sharedUserRepository.updateUniqueUser(
+        {
+          id: userId,
+          deletedAt: null,
+        },
+        body,
+      );
+    } catch (error) {
+      if (isUniqueConstraintPrismaError(error)) {
+        throw UsernameAlreadyTakenException;
+      }
+
+      throw error;
+    }
   }
 }

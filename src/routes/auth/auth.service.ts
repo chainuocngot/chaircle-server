@@ -1,6 +1,4 @@
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { HttpException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-import { type Cache } from 'cache-manager';
+import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { addMilliseconds } from 'date-fns';
 import ms, { StringValue } from 'ms';
 import {
@@ -10,7 +8,6 @@ import {
   InvalidOtpCodeException,
   RefreshTokenNotFoundException,
   SendOtpFailedException,
-  UsernameAlreadyTakenException,
   WrongPasswordException,
 } from 'src/routes/auth/auth.error';
 import {
@@ -40,6 +37,7 @@ import { SharedUserRepository } from 'src/shared/repositories/shared-user.reposi
 import { EmailService } from 'src/shared/services/email.service';
 import { HashingService } from 'src/shared/services/hashing.service';
 import { TokenService } from 'src/shared/services/token.service';
+import { UsernameAlreadyTakenException } from 'src/shared/shared.error';
 import { generateOtp } from 'src/shared/utils/code.util';
 import { isNotFoundPrismaError } from 'src/shared/utils/prisma.util';
 
@@ -358,7 +356,7 @@ export class AuthService {
     ]);
 
     // 2. Reset password
-    const user = await this.authRepository.updateUser(
+    const user = await this.sharedUserRepository.updateUniqueUser(
       {
         id: decodedForgotPassword.userId,
       },

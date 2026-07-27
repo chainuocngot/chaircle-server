@@ -1,6 +1,6 @@
-import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Put } from '@nestjs/common';
 import { ZodSerializerDto } from 'nestjs-zod';
-import { GetMeResDto } from 'src/routes/user/user.dto';
+import { GetMeResDto, UpdateMeBodyDto, UpdateMeResDto } from 'src/routes/user/user.dto';
 import { UserService } from 'src/routes/user/user.service';
 import { ActiveUser } from 'src/shared/decorators/active-user.decorator';
 import { UserType } from 'src/shared/models/user.model';
@@ -14,5 +14,12 @@ export class UserController {
   @ZodSerializerDto(GetMeResDto)
   getMe(@ActiveUser('userId') userId: UserType['id']) {
     return this.userService.getMe(userId);
+  }
+
+  @Put('me')
+  @HttpCode(HttpStatus.OK)
+  @ZodSerializerDto(UpdateMeResDto)
+  updateMe(@ActiveUser('userId') userId: UserType['id'], @Body() body: UpdateMeBodyDto) {
+    return this.userService.updateMe(userId, body);
   }
 }

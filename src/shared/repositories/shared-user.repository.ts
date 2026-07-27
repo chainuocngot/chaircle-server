@@ -18,4 +18,11 @@ export class SharedUserRepository {
       where,
     });
   }
+
+  updateUniqueUser(where: Prisma.UserWhereUniqueInput, data: Prisma.UserUncheckedUpdateInput) {
+    return this.prismaService.user.update({
+      where,
+      data,
+    });
+  }
 }

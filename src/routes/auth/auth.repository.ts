@@ -16,16 +16,6 @@ export class AuthRepository {
     });
   }
 
-  updateUser(
-    where: Prisma.UserWhereUniqueInput,
-    data: Prisma.UserUncheckedUpdateInput,
-  ): Promise<UserType> {
-    return this.prismaService.user.update({
-      where,
-      data,
-    });
-  }
-
   createDevice(payload: Prisma.DeviceUncheckedCreateInput): Promise<DeviceType> {
     return this.prismaService.device.create({
       data: payload,

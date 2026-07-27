@@ -8,8 +8,6 @@ import {
 
 export const EmailAlreadyInUsedException = new ConflictException('Error.EmailAlreadyInUsed');
 
-export const UsernameAlreadyTakenException = new ConflictException('Error.UsernameAlreadyTaken');
-
 export const AccountNotFoundException = new NotFoundException('Error.AccountNotFound');
 
 export const WrongPasswordException = new UnprocessableEntityException('Error.WrongPassword');
