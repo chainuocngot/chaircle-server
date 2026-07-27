@@ -1,0 +1,30 @@
+services:
+  chaircle-db:
+    image: postgres:17
+    container_name: database
+    ports:
+      - 6767:5432
+    environment:
+      - POSTGRES_DB=chaircle
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=matkhaucucmanh
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d chaircle"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+      start_period: 10s
+  chaircle-api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 7676:4000
+    environment:
+      - APP_PORT=4000
+    volumes:
+      - ./src:/usr/app/src
+    depends_on:
+      chaircle-db:
+        condition: service_healthy
