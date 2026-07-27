@@ -20,6 +20,7 @@ export const VerificationCodeType = {
   REGISTER: 'REGISTER',
   LOGIN: 'LOGIN',
   CHANGE_PASSWORD: 'CHANGE_PASSWORD',
+  FORGOT_PASSWORD: 'FORGOT_PASSWORD',
   DISABLE_2FA: 'DISABLE_2FA'
 } as const
 

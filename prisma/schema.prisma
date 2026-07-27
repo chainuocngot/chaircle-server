@@ -278,6 +278,7 @@ enum VerificationCodeType {
   REGISTER
   LOGIN
   CHANGE_PASSWORD
+  FORGOT_PASSWORD
   DISABLE_2FA
 }
 

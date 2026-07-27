@@ -2,6 +2,7 @@ services:
   chaircle-db:
     image: postgres:17
     container_name: database
+    restart: unless-stopped
     ports:
       - 6767:5432
     environment:
@@ -14,17 +15,34 @@ services:
       timeout: 30s
       retries: 3
       start_period: 10s
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
   chaircle-api:
     container_name: api
     build:
       context: .
       dockerfile: Dockerfile
+    restart: unless-stopped
     ports:
       - 7676:4000
     environment:
       - APP_PORT=4000
     volumes:
       - ./src:/usr/app/src
+      - ./prisma:/usr/app/prisma
     depends_on:
       chaircle-db:
         condition: service_healthy
+  chaircle-redis:
+    image: redis:8-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    command: "redis-server --appendonly yes"
+
+volumes:
+  postgres_data:
+  redis_data:
