@@ -1,5 +1,5 @@
-import { Body, Controller, HttpCode, HttpStatus, Ip, Post } from '@nestjs/common';
-import { Request } from 'express';
+import { Body, Controller, HttpCode, HttpStatus, Ip, Post, Put, Query, Res } from '@nestjs/common';
+import { type Response } from 'express';
 import { ZodSerializerDto } from 'nestjs-zod';
 import {
   LoginBodyDto,
@@ -10,8 +10,12 @@ import {
   RefreshTokenResDto,
   RegisterBodyDto,
   RegisterResDto,
+  ResetPasswordBodyDto,
+  ResetPasswordQueryDto,
+  ResetPasswordResDto,
   SendOtpBodyDto,
   SendOtpResDto,
+  VerifyForgotPasswordOtpBodyDto,
 } from 'src/routes/auth/auth.dto';
 import { AuthService } from 'src/routes/auth/auth.service';
 import { ActiveUser } from 'src/shared/decorators/active-user.decorator';
@@ -71,5 +75,24 @@ export class AuthController {
   @ZodSerializerDto(SendOtpResDto)
   sendOtp(@Body() body: SendOtpBodyDto) {
     return this.authService.sendOtp(body);
+  }
+
+  @Post('verify-forgot-password-otp')
+  @IsPublic()
+  @HttpCode(HttpStatus.PERMANENT_REDIRECT)
+  async verifyForgotPasswordOtp(
+    @Res() res: Response,
+    @Body() body: VerifyForgotPasswordOtpBodyDto,
+  ) {
+    const redirectUrl = await this.authService.verifyForgotPasswordOtp(body);
+    return res.redirect(redirectUrl);
+  }
+
+  @Put('reset-password')
+  @IsPublic()
+  @HttpCode(HttpStatus.OK)
+  @ZodSerializerDto(ResetPasswordResDto)
+  resetPassword(@Query() query: ResetPasswordQueryDto, @Body() body: ResetPasswordBodyDto) {
+    return this.authService.resetPassword(query, body);
   }
 }

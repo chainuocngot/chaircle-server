@@ -15,11 +15,14 @@ if (!fs.existsSync(envFilePath)) {
 
 const envSchema = z.object({
   DATABASE_URL: z.url(),
+  CLIENT_URL: z.url(),
   APP_PORT: z.coerce.number(),
   ACCESS_TOKEN_SECRET: z.string(),
   ACCESS_TOKEN_EXPIRES_IN: z.string(),
   REFRESH_TOKEN_SECRET: z.string(),
   REFRESH_TOKEN_EXPIRES_IN: z.string(),
+  FORGOT_PASSWORD_TOKEN_SECRET: z.string(),
+  FORGOT_PASSWORD_TOKEN_EXPIRES_IN: z.string(),
   TOKEN_ALGORITHM: z.string(),
   API_KEY_RESEND: z.string(),
   OTP_EXPIRES_IN: z.string(),

@@ -8,8 +8,12 @@ import {
   RefreshTokenResSchema,
   RegisterBodySchema,
   RegisterResSchema,
+  ResetPasswordBodySchema,
+  ResetPasswordQuerySchema,
+  ResetPasswordResSchema,
   SendOtpBodySchema,
   SendOtpResSchema,
+  VerifyForgotPasswordOtpBodySchema,
 } from 'src/routes/auth/auth.model';
 
 export class RegisterBodyDto extends createZodDto(RegisterBodySchema) {}
@@ -31,3 +35,13 @@ export class RefreshTokenResDto extends createZodDto(RefreshTokenResSchema) {}
 export class SendOtpBodyDto extends createZodDto(SendOtpBodySchema) {}
 
 export class SendOtpResDto extends createZodDto(SendOtpResSchema) {}
+
+export class VerifyForgotPasswordOtpBodyDto extends createZodDto(
+  VerifyForgotPasswordOtpBodySchema,
+) {}
+
+export class ResetPasswordQueryDto extends createZodDto(ResetPasswordQuerySchema) {}
+
+export class ResetPasswordBodyDto extends createZodDto(ResetPasswordBodySchema) {}
+
+export class ResetPasswordResDto extends createZodDto(ResetPasswordResSchema) {}

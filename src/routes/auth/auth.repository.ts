@@ -22,6 +22,16 @@ export class AuthRepository {
     });
   }
 
+  updateUser(
+    where: Prisma.UserWhereUniqueInput,
+    data: Prisma.UserUncheckedUpdateInput,
+  ): Promise<UserType> {
+    return this.prismaService.user.update({
+      where,
+      data,
+    });
+  }
+
   createDevice(payload: Prisma.DeviceUncheckedCreateInput): Promise<DeviceType> {
     return this.prismaService.device.create({
       data: payload,
@@ -72,6 +82,14 @@ export class AuthRepository {
     where: Prisma.VerificationCodeWhereUniqueInput,
   ): Promise<VerificationCodeType | null> {
     return this.prismaService.verificationCode.findUnique({
+      where,
+    });
+  }
+
+  deleteVerificationCode(
+    where: Prisma.VerificationCodeWhereUniqueInput,
+  ): Promise<VerificationCodeType> {
+    return this.prismaService.verificationCode.delete({
       where,
     });
   }

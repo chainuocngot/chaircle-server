@@ -1,4 +1,6 @@
-import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { HttpException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { type Cache } from 'cache-manager';
 import { addMilliseconds } from 'date-fns';
 import ms, { StringValue } from 'ms';
 import {
@@ -20,8 +22,12 @@ import {
   RefreshTokenResType,
   RegisterBodyType,
   RegisterResType,
+  ResetPasswordBodyType,
+  ResetPasswordQueryType,
+  ResetPasswordResType,
   SendOtpBodyType,
   SendOtpResType,
+  VerifyForgotPasswordOtpBodyType,
 } from 'src/routes/auth/auth.model';
 import { AuthRepository } from 'src/routes/auth/auth.repository';
 import envConfig from 'src/shared/config';
@@ -98,7 +104,7 @@ export class AuthService {
       isActive: true,
     });
 
-    // 6. Sign tokens
+    // 6. Sign tokens & Xóa mã OTP đã dùng xong trong DB
     const $signAccessToken = this.tokenService.signAccessToken({
       userId: user.id,
       deviceId: device.id,
@@ -106,7 +112,17 @@ export class AuthService {
     const $signRefreshToken = this.tokenService.signRefreshToken({
       userId: user.id,
     });
-    const [accessToken, refreshToken] = await Promise.all([$signAccessToken, $signRefreshToken]);
+    const $deleteVerificationCode = this.authRepository.deleteVerificationCode({
+      email_type: {
+        email: user.email,
+        type: VerificationCodeType.Register,
+      },
+    });
+    const [accessToken, refreshToken] = await Promise.all([
+      $signAccessToken,
+      $signRefreshToken,
+      $deleteVerificationCode,
+    ]);
 
     // 7. Lưu Refresh token vào DB
     const decodedRefreshToken = await this.tokenService.verifyRefreshToken(refreshToken);
@@ -302,6 +318,63 @@ export class AuthService {
 
     return {
       message: 'Success.SendOtp',
+    };
+  }
+
+  async verifyForgotPasswordOtp(body: VerifyForgotPasswordOtpBodyType): Promise<string> {
+    const user = await this.authRepository.findUser({
+      email: body.email,
+      deletedAt: null,
+    });
+
+    if (user === null) {
+      throw AccountNotFoundException;
+    }
+
+    // 1. Sign Forgot password token
+    const forgotPasswordToken = await this.tokenService.signForgotPasswordToken({
+      userId: user.id,
+    });
+
+    // 2. Tạo link redirect phía client kèm search params là token
+    const redirectUrl = new URL(`${envConfig.CLIENT_URL}/reset-password`);
+    redirectUrl.searchParams.set('token', forgotPasswordToken);
+
+    return redirectUrl.toString();
+  }
+
+  async resetPassword(
+    query: ResetPasswordQueryType,
+    body: ResetPasswordBodyType,
+  ): Promise<ResetPasswordResType> {
+    // 1. Verify token & hash password
+    const $verifyForgotPasswordToken = this.tokenService.verifyForgotPasswordToken(query.token);
+    const $hashPassword = this.hashingService.hash(body.password);
+    const [decodedForgotPassword, hashedPassword] = await Promise.all([
+      $verifyForgotPasswordToken,
+      $hashPassword,
+    ]);
+
+    // 2. Reset password
+    const user = await this.authRepository.updateUser(
+      {
+        id: decodedForgotPassword.userId,
+      },
+      {
+        password: hashedPassword,
+      },
+    );
+
+    // 3. Xóa mã OTP đã dùng xong trong DB
+    await this.authRepository.deleteVerificationCode({
+      email_type: {
+        email: user.email,
+        type: VerificationCodeType.Register,
+      },
+    });
+
+    return {
+      message: 'Success.ResetPassword',
     };
   }
 

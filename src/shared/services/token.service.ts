@@ -4,7 +4,9 @@ import envConfig from 'src/shared/config';
 import {
   AccessTokenPayload,
   CreateAccessTokenPayload,
+  CreateForgotPasswordTokenPayload,
   CreateRefreshTokenPayload,
+  ForgotPasswordTokenPayload,
   RefreshTokenPayload,
 } from 'src/shared/types/token.type';
 import { v4 as uuidv4 } from 'uuid';
@@ -55,6 +57,24 @@ export class TokenService {
   verifyRefreshToken(token: string): Promise<RefreshTokenPayload> {
     return this.jwtService.verifyAsync(token, {
       secret: envConfig.REFRESH_TOKEN_SECRET,
+      algorithms: [envConfig.TOKEN_ALGORITHM] as JwtVerifyOptions['algorithms'],
+    });
+  }
+
+  signForgotPasswordToken(payload: CreateForgotPasswordTokenPayload): Promise<string> {
+    return this.jwtService.signAsync(
+      { ...payload, uuid: uuidv4() },
+      {
+        secret: envConfig.FORGOT_PASSWORD_TOKEN_SECRET,
+        expiresIn: envConfig.FORGOT_PASSWORD_TOKEN_EXPIRES_IN as JwtSignOptions['expiresIn'],
+        algorithm: envConfig.TOKEN_ALGORITHM as JwtSignOptions['algorithm'],
+      },
+    );
+  }
+
+  verifyForgotPasswordToken(token: string): Promise<ForgotPasswordTokenPayload> {
+    return this.jwtService.verifyAsync(token, {
+      secret: envConfig.FORGOT_PASSWORD_TOKEN_SECRET,
       algorithms: [envConfig.TOKEN_ALGORITHM] as JwtVerifyOptions['algorithms'],
     });
   }

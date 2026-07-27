@@ -17,3 +17,12 @@ export type RefreshTokenPayload = CreateRefreshTokenPayload & {
   exp: number;
   iat: number;
 };
+
+export type CreateForgotPasswordTokenPayload = {
+  userId: number;
+};
+
+export type ForgotPasswordTokenPayload = CreateForgotPasswordTokenPayload & {
+  exp: number;
+  iat: number;
+};
