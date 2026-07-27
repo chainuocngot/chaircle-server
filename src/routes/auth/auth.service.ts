@@ -36,6 +36,7 @@ import {
   VerificationCodeType,
 } from 'src/shared/constants/auth.constant';
 import { UserType } from 'src/shared/models/user.model';
+import { SharedUserRepository } from 'src/shared/repositories/shared-user.repository';
 import { EmailService } from 'src/shared/services/email.service';
 import { HashingService } from 'src/shared/services/hashing.service';
 import { TokenService } from 'src/shared/services/token.service';
@@ -49,6 +50,7 @@ export class AuthService {
     private readonly tokenService: TokenService,
     private readonly hashingService: HashingService,
     private readonly emailService: EmailService,
+    private readonly sharedUserRepository: SharedUserRepository,
   ) {}
 
   async register({
@@ -68,7 +70,7 @@ export class AuthService {
     });
 
     // 2. Kiểm tra email/username đã được đăng ký chưa
-    const userWithPayload = await this.authRepository.findUser({
+    const userWithPayload = await this.sharedUserRepository.findUser({
       OR: [
         { email: body.email },
         {
@@ -149,7 +151,7 @@ export class AuthService {
     body: LoginBodyType;
   }): Promise<LoginResType> {
     // 1. Tìm account với email
-    const user = await this.authRepository.findUser({
+    const user = await this.sharedUserRepository.findUniqueUser({
       email: body.email,
       deletedAt: null,
     });
@@ -279,7 +281,7 @@ export class AuthService {
 
   async sendOtp(body: SendOtpBodyType): Promise<SendOtpResType> {
     // 1. Kiểm tra trước dữ liệu User
-    const user = await this.authRepository.findUser({
+    const user = await this.sharedUserRepository.findUniqueUser({
       email: body.email,
     });
 
@@ -322,7 +324,7 @@ export class AuthService {
   }
 
   async verifyForgotPasswordOtp(body: VerifyForgotPasswordOtpBodyType): Promise<string> {
-    const user = await this.authRepository.findUser({
+    const user = await this.sharedUserRepository.findUniqueUser({
       email: body.email,
       deletedAt: null,
     });

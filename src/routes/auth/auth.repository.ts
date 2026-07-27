@@ -10,12 +10,6 @@ import { PrismaService } from 'src/shared/services/prisma.service';
 export class AuthRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  findUser(where: Prisma.UserWhereInput): Promise<UserType | null> {
-    return this.prismaService.user.findFirst({
-      where,
-    });
-  }
-
   createUser(payload: Prisma.UserCreateInput): Promise<UserType> {
     return this.prismaService.user.create({
       data: payload,

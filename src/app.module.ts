@@ -12,6 +12,7 @@ import { SharedModule } from 'src/shared/shared.module';
 
 import { AppController } from './app.controller';
 import { AuthModule } from './routes/auth/auth.module';
+import { UserModule } from './routes/user/user.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { AuthModule } from './routes/auth/auth.module';
     }),
     SharedModule,
     AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [

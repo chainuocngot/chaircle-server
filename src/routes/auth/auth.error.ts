@@ -12,8 +12,6 @@ export const UsernameAlreadyTakenException = new ConflictException('Error.Userna
 
 export const AccountNotFoundException = new NotFoundException('Error.AccountNotFound');
 
-export const UserNotFoundException = new NotFoundException('Error.UserNotFound');
-
 export const WrongPasswordException = new UnprocessableEntityException('Error.WrongPassword');
 
 export const RefreshTokenNotFoundException = new UnauthorizedException(
