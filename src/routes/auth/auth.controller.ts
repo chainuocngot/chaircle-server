@@ -1,9 +1,23 @@
-import { Body, Controller, HttpCode, HttpStatus, Ip, Post, Put, Query, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Ip,
+  Post,
+  Put,
+  Query,
+  Res,
+} from '@nestjs/common';
 import { type Response } from 'express';
 import { ZodSerializerDto } from 'nestjs-zod';
 import {
   ChangePasswordBodyDto,
   ChangePasswordResDto,
+  GetGoogleAuthorizeUrlResDto,
+  GoogleOAuthCallbackQueryDto,
+  GoogleOAuthCallbackResDto,
   LoginBodyDto,
   LoginResDto,
   LogoutBodyDto,
@@ -20,6 +34,7 @@ import {
   VerifyForgotPasswordOtpBodyDto,
 } from 'src/routes/auth/auth.dto';
 import { AuthService } from 'src/routes/auth/auth.service';
+import { GoogleOAuthService } from 'src/routes/auth/google-oauth.service';
 import { ActiveUser } from 'src/shared/decorators/active-user.decorator';
 import { IsPublic } from 'src/shared/decorators/auth.decorator';
 import { UserAgent } from 'src/shared/decorators/user-agent.decorator';
@@ -27,7 +42,10 @@ import { UserType } from 'src/shared/models/user.model';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly googleOAuthService: GoogleOAuthService,
+  ) {}
 
   @Post('register')
   @IsPublic()
@@ -106,5 +124,24 @@ export class AuthController {
     @Body() body: ChangePasswordBodyDto,
   ) {
     return this.authService.changePassword(userId, body);
+  }
+
+  @Get('google')
+  @IsPublic()
+  @HttpCode(HttpStatus.OK)
+  @ZodSerializerDto(GetGoogleAuthorizeUrlResDto)
+  getGoogleAuthorizeUrl(@Ip() ip: string, @UserAgent() userAgent: string) {
+    const authorizeUrl = this.googleOAuthService.getAuthorizeUrl(ip, userAgent);
+    return {
+      url: authorizeUrl,
+    };
+  }
+
+  @Get('google/callback')
+  @IsPublic()
+  @HttpCode(HttpStatus.CREATED)
+  @ZodSerializerDto(GoogleOAuthCallbackResDto)
+  googleOAuthCallback(@Query() query: GoogleOAuthCallbackQueryDto) {
+    return this.googleOAuthService.callback(query);
   }
 }

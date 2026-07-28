@@ -1,12 +1,9 @@
 import {
   BadRequestException,
-  ConflictException,
   NotFoundException,
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-
-export const EmailAlreadyInUsedException = new ConflictException('Error.EmailAlreadyInUsed');
 
 export const AccountNotFoundException = new NotFoundException('Error.AccountNotFound');
 
@@ -21,3 +18,5 @@ export const SendOtpFailedException = new BadRequestException('Error.SendOtpFail
 export const InvalidOtpCodeException = new UnauthorizedException('Error.InvalidOtpCodeException');
 
 export const ExpiredOtpCodeException = new UnauthorizedException('Error.ExpiredOtpCodeException');
+
+export const GoogleOAuthException = new BadRequestException('Error.GoogleOAuth');

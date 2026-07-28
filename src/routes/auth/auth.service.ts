@@ -3,7 +3,6 @@ import { addMilliseconds } from 'date-fns';
 import ms, { StringValue } from 'ms';
 import {
   AccountNotFoundException,
-  EmailAlreadyInUsedException,
   ExpiredOtpCodeException,
   InvalidOtpCodeException,
   RefreshTokenNotFoundException,
@@ -35,22 +34,31 @@ import {
   VerificationCodeType,
 } from 'src/shared/constants/auth.constant';
 import { UserType } from 'src/shared/models/user.model';
+import { SharedAuthRepository } from 'src/shared/repositories/shared-auth.repository';
+import { SharedRefreshTokenRepository } from 'src/shared/repositories/shared-refresh-token.repository';
 import { SharedUserRepository } from 'src/shared/repositories/shared-user.repository';
 import { EmailService } from 'src/shared/services/email.service';
 import { HashingService } from 'src/shared/services/hashing.service';
+import { PrismaService } from 'src/shared/services/prisma.service';
 import { TokenService } from 'src/shared/services/token.service';
-import { UsernameAlreadyTakenException } from 'src/shared/shared.error';
+import {
+  EmailAlreadyInUsedException,
+  UsernameAlreadyTakenException,
+} from 'src/shared/shared.error';
 import { generateOtp } from 'src/shared/utils/code.util';
 import { isNotFoundPrismaError } from 'src/shared/utils/prisma.util';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly prismaService: PrismaService,
     private readonly authRepository: AuthRepository,
     private readonly tokenService: TokenService,
     private readonly hashingService: HashingService,
     private readonly emailService: EmailService,
     private readonly sharedUserRepository: SharedUserRepository,
+    private readonly sharedAuthRepository: SharedAuthRepository,
+    private readonly sharedRefreshTokenRepository: SharedRefreshTokenRepository,
   ) {}
 
   async register({
@@ -91,48 +99,39 @@ export class AuthService {
     // 3. Hash password
     const hashedPassword = await this.hashingService.hash(body.password);
 
-    // 4. Tạo User
-    const user = await this.authRepository.createUser({
-      email: body.email,
-      username: body.username,
-      password: hashedPassword,
-    });
+    const { accessToken, refreshToken } = await this.prismaService.$transaction(async (tx) => {
+      // 4. Tạo User
+      const user = await this.sharedUserRepository.createUser(
+        {
+          email: body.email,
+          username: body.username,
+          password: hashedPassword,
+        },
+        tx,
+      );
 
-    // 5. Tạo Device
-    const device = await this.authRepository.createDevice({
-      ip,
-      userAgent,
-      userId: user.id,
-      isActive: true,
-    });
+      // 5. Tạo login session
+      const tokens = await this.sharedAuthRepository.createLoginSession(
+        {
+          ip,
+          userAgent,
+          userId: user.id,
+        },
+        tx,
+      );
 
-    // 6. Sign tokens & Xóa mã OTP đã dùng xong trong DB
-    const $signAccessToken = this.tokenService.signAccessToken({
-      userId: user.id,
-      deviceId: device.id,
-    });
-    const $signRefreshToken = this.tokenService.signRefreshToken({
-      userId: user.id,
-    });
-    const $deleteVerificationCode = this.authRepository.deleteVerificationCode({
-      email_type: {
-        email: user.email,
-        type: VerificationCodeType.Register,
-      },
-    });
-    const [accessToken, refreshToken] = await Promise.all([
-      $signAccessToken,
-      $signRefreshToken,
-      $deleteVerificationCode,
-    ]);
+      // 6. Xóa mã OTP đã dùng xong trong DB
+      await this.authRepository.deleteVerificationCode(
+        {
+          email_type: {
+            email: user.email,
+            type: VerificationCodeType.Register,
+          },
+        },
+        tx,
+      );
 
-    // 7. Lưu Refresh token vào DB
-    const decodedRefreshToken = await this.tokenService.verifyRefreshToken(refreshToken);
-    await this.authRepository.storeRefreshToken({
-      deviceId: device.id,
-      expiresAt: new Date(decodedRefreshToken.exp * 1000),
-      token: refreshToken,
-      userId: user.id,
+      return tokens;
     });
 
     return {
@@ -166,31 +165,18 @@ export class AuthService {
       throw WrongPasswordException;
     }
 
-    // 3. Tạo Device
-    const device = await this.authRepository.createDevice({
-      ip,
-      userAgent,
-      userId: user.id,
-      isActive: true,
-    });
+    // 3. Tạo login session
+    const { accessToken, refreshToken } = await this.prismaService.$transaction(async (tx) => {
+      const tokens = await this.sharedAuthRepository.createLoginSession(
+        {
+          ip,
+          userAgent,
+          userId: user.id,
+        },
+        tx,
+      );
 
-    // 4. Sign tokens
-    const $signAccessToken = this.tokenService.signAccessToken({
-      userId: user.id,
-      deviceId: device.id,
-    });
-    const $signRefreshToken = this.tokenService.signRefreshToken({
-      userId: user.id,
-    });
-    const [accessToken, refreshToken] = await Promise.all([$signAccessToken, $signRefreshToken]);
-
-    // 5. Lưu Refresh token vào DB
-    const decodedRefreshToken = await this.tokenService.verifyRefreshToken(refreshToken);
-    await this.authRepository.storeRefreshToken({
-      deviceId: device.id,
-      expiresAt: new Date(decodedRefreshToken.exp * 1000),
-      token: refreshToken,
-      userId: user.id,
+      return tokens;
     });
 
     return {
@@ -237,33 +223,46 @@ export class AuthService {
 
   async refreshToken(body: RefreshTokenBodyType): Promise<RefreshTokenResType> {
     try {
-      // 1. Verify và xóa refresh token cũ từ body
-      const decodedRefreshToken = await this.tokenService.verifyRefreshToken(body.refresh_token);
-      const deletedOldRefreshToken = await this.authRepository.deleteRefreshToken({
-        token: body.refresh_token,
-      });
+      const { accessToken, refreshToken } = await this.prismaService.$transaction(async (tx) => {
+        // 1. Verify và xóa refresh token cũ từ body
+        const decodedRefreshToken = await this.tokenService.verifyRefreshToken(body.refresh_token);
+        const deletedOldRefreshToken = await this.authRepository.deleteRefreshToken(
+          {
+            token: body.refresh_token,
+          },
+          tx,
+        );
 
-      if (deletedOldRefreshToken === null) {
-        throw RefreshTokenNotFoundException;
-      }
+        if (deletedOldRefreshToken === null) {
+          throw RefreshTokenNotFoundException;
+        }
 
-      // 2. Sign tokens
-      const $signAccessToken = this.tokenService.signAccessToken({
-        userId: deletedOldRefreshToken.userId,
-        deviceId: deletedOldRefreshToken.deviceId,
-      });
-      const $signRefreshToken = this.tokenService.signRefreshToken({
-        userId: deletedOldRefreshToken.userId,
-        exp: decodedRefreshToken.exp,
-      });
-      const [accessToken, refreshToken] = await Promise.all([$signAccessToken, $signRefreshToken]);
+        // 2. Sign tokens
+        const $signAccessToken = this.tokenService.signAccessToken({
+          userId: deletedOldRefreshToken.userId,
+          deviceId: deletedOldRefreshToken.deviceId,
+        });
+        const $signRefreshToken = this.tokenService.signRefreshToken({
+          userId: deletedOldRefreshToken.userId,
+          exp: decodedRefreshToken.exp,
+        });
+        const [accessToken, refreshToken] = await Promise.all([
+          $signAccessToken,
+          $signRefreshToken,
+        ]);
 
-      // 3. Lưu Refresh token mới vào DB
-      await this.authRepository.storeRefreshToken({
-        deviceId: deletedOldRefreshToken.deviceId,
-        expiresAt: new Date(decodedRefreshToken.exp * 1000),
-        token: refreshToken,
-        userId: deletedOldRefreshToken.userId,
+        // 3. Lưu Refresh token mới vào DB
+        await this.sharedRefreshTokenRepository.createRefreshToken(
+          {
+            deviceId: deletedOldRefreshToken.deviceId,
+            expiresAt: new Date(decodedRefreshToken.exp * 1000),
+            token: refreshToken,
+            userId: deletedOldRefreshToken.userId,
+          },
+          tx,
+        );
+
+        return { accessToken, refreshToken };
       });
 
       return {

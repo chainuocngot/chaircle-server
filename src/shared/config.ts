@@ -26,6 +26,9 @@ const envSchema = z.object({
   TOKEN_ALGORITHM: z.string(),
   API_KEY_RESEND: z.string(),
   OTP_EXPIRES_IN: z.string(),
+  OAUTH_GOOGLE_CLIENT_SECRET: z.string(),
+  OAUTH_GOOGLE_CLIENT_ID: z.string(),
+  OAUTH_GOOGLE_REDIRECT_URI: z.string(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

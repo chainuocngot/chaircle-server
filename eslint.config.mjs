@@ -8,6 +8,9 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   {
     ignores: ['eslint.config.mjs', 'commitlint.config.mjs', '.husky/**', 'dist/**', 'prisma/**'],
+    linterOptions: {
+      reportUnusedDisableDirectives: false,
+    },
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,

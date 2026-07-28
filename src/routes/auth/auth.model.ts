@@ -1,8 +1,14 @@
 import { VerificationCodeType } from 'src/shared/constants/auth.constant';
+import { DeviceSchema } from 'src/shared/models/device.model';
 import { MessageResSchema } from 'src/shared/models/response.model';
 import { UserSchema } from 'src/shared/models/user.model';
 import { validatePasswordMatch } from 'src/shared/utils/zod.util';
 import z from 'zod';
+
+const AuthorizationTokensResSchema = z.object({
+  access_token: z.jwt(),
+  refresh_token: z.jwt(),
+});
 
 // Register
 export const RegisterBodySchema = UserSchema.pick({
@@ -17,10 +23,7 @@ export const RegisterBodySchema = UserSchema.pick({
   .superRefine(validatePasswordMatch)
   .strict();
 
-export const RegisterResSchema = z.object({
-  access_token: z.jwt(),
-  refresh_token: z.jwt(),
-});
+export const RegisterResSchema = AuthorizationTokensResSchema;
 
 // Login
 export const LoginBodySchema = UserSchema.pick({
@@ -46,7 +49,7 @@ export const RefreshTokenBodySchema = z
   })
   .strict();
 
-export const RefreshTokenResSchema = RegisterResSchema;
+export const RefreshTokenResSchema = AuthorizationTokensResSchema;
 
 // Send OTP
 export const SendOtpBodySchema = UserSchema.pick({
@@ -86,6 +89,7 @@ export const ResetPasswordBodySchema = UserSchema.pick({
 
 export const ResetPasswordResSchema = MessageResSchema;
 
+// Change Password
 export const ChangePasswordBodySchema = UserSchema.pick({
   password: true,
 })
@@ -97,6 +101,24 @@ export const ChangePasswordBodySchema = UserSchema.pick({
   .strict();
 
 export const ChangePasswordResSchema = MessageResSchema;
+
+// Get Google Authorize URL
+export const GetGoogleAuthorizeUrlResSchema = z.object({
+  url: z.url(),
+});
+
+// Google OAuth Callback
+export const GoogleOAuthCallbackQuerySchema = z.object({
+  code: z.string(),
+  state: z.string(),
+});
+
+export const GoogleOAuthCallbackResSchema = AuthorizationTokensResSchema;
+
+export const GoogleOAuthStateSchema = DeviceSchema.pick({
+  ip: true,
+  userAgent: true,
+});
 
 export type RegisterBodyType = z.infer<typeof RegisterBodySchema>;
 export type RegisterResType = z.infer<typeof RegisterResSchema>;
@@ -114,3 +136,7 @@ export type ResetPasswordBodyType = z.infer<typeof ResetPasswordBodySchema>;
 export type ResetPasswordResType = z.infer<typeof ResetPasswordResSchema>;
 export type ChangePasswordBodyType = z.infer<typeof ChangePasswordBodySchema>;
 export type ChangePasswordResType = z.infer<typeof ChangePasswordResSchema>;
+export type GetGoogleAuthorizeUrlResType = z.infer<typeof GetGoogleAuthorizeUrlResSchema>;
+export type GoogleOAuthCallbackQueryType = z.infer<typeof GoogleOAuthCallbackQuerySchema>;
+export type GoogleOAuthCallbackResType = z.infer<typeof GoogleOAuthCallbackResSchema>;
+export type GoogleOAuthStateType = z.infer<typeof GoogleOAuthStateSchema>;
