@@ -307,6 +307,7 @@ export type UserWhereInput = {
   deletedTopics?: Prisma.TopicListRelationFilter
   topicMembers?: Prisma.TopicMemberListRelationFilter
   likes?: Prisma.LikeListRelationFilter
+  mentionedInPosts?: Prisma.PostListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   createdUsers?: Prisma.UserListRelationFilter
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -345,6 +346,7 @@ export type UserOrderByWithRelationInput = {
   deletedTopics?: Prisma.TopicOrderByRelationAggregateInput
   topicMembers?: Prisma.TopicMemberOrderByRelationAggregateInput
   likes?: Prisma.LikeOrderByRelationAggregateInput
+  mentionedInPosts?: Prisma.PostOrderByRelationAggregateInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   createdUsers?: Prisma.UserOrderByRelationAggregateInput
   updatedBy?: Prisma.UserOrderByWithRelationInput
@@ -386,6 +388,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   deletedTopics?: Prisma.TopicListRelationFilter
   topicMembers?: Prisma.TopicMemberListRelationFilter
   likes?: Prisma.LikeListRelationFilter
+  mentionedInPosts?: Prisma.PostListRelationFilter
   createdBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   createdUsers?: Prisma.UserListRelationFilter
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -460,6 +463,7 @@ export type UserCreateInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -498,6 +502,7 @@ export type UserUncheckedCreateInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -529,6 +534,7 @@ export type UserUpdateInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -567,6 +573,7 @@ export type UserUncheckedUpdateInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -932,6 +939,12 @@ export type UserUpdateOneRequiredWithoutDevicesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDevicesInput, Prisma.UserUpdateWithoutDevicesInput>, Prisma.UserUncheckedUpdateWithoutDevicesInput>
 }
 
+export type UserCreateNestedManyWithoutMentionedInPostsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMentionedInPostsInput, Prisma.UserUncheckedCreateWithoutMentionedInPostsInput> | Prisma.UserCreateWithoutMentionedInPostsInput[] | Prisma.UserUncheckedCreateWithoutMentionedInPostsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMentionedInPostsInput | Prisma.UserCreateOrConnectWithoutMentionedInPostsInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
 export type UserCreateNestedOneWithoutCreatedPostsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedPostsInput, Prisma.UserUncheckedCreateWithoutCreatedPostsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedPostsInput
@@ -948,6 +961,25 @@ export type UserCreateNestedOneWithoutDeletedPostsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutDeletedPostsInput, Prisma.UserUncheckedCreateWithoutDeletedPostsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeletedPostsInput
   connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUncheckedCreateNestedManyWithoutMentionedInPostsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMentionedInPostsInput, Prisma.UserUncheckedCreateWithoutMentionedInPostsInput> | Prisma.UserCreateWithoutMentionedInPostsInput[] | Prisma.UserUncheckedCreateWithoutMentionedInPostsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMentionedInPostsInput | Prisma.UserCreateOrConnectWithoutMentionedInPostsInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutMentionedInPostsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMentionedInPostsInput, Prisma.UserUncheckedCreateWithoutMentionedInPostsInput> | Prisma.UserCreateWithoutMentionedInPostsInput[] | Prisma.UserUncheckedCreateWithoutMentionedInPostsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMentionedInPostsInput | Prisma.UserCreateOrConnectWithoutMentionedInPostsInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutMentionedInPostsInput | Prisma.UserUpsertWithWhereUniqueWithoutMentionedInPostsInput[]
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutMentionedInPostsInput | Prisma.UserUpdateWithWhereUniqueWithoutMentionedInPostsInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutMentionedInPostsInput | Prisma.UserUpdateManyWithWhereWithoutMentionedInPostsInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
 export type UserUpdateOneRequiredWithoutCreatedPostsNestedInput = {
@@ -976,6 +1008,19 @@ export type UserUpdateOneWithoutDeletedPostsNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDeletedPostsInput, Prisma.UserUpdateWithoutDeletedPostsInput>, Prisma.UserUncheckedUpdateWithoutDeletedPostsInput>
+}
+
+export type UserUncheckedUpdateManyWithoutMentionedInPostsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMentionedInPostsInput, Prisma.UserUncheckedCreateWithoutMentionedInPostsInput> | Prisma.UserCreateWithoutMentionedInPostsInput[] | Prisma.UserUncheckedCreateWithoutMentionedInPostsInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMentionedInPostsInput | Prisma.UserCreateOrConnectWithoutMentionedInPostsInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutMentionedInPostsInput | Prisma.UserUpsertWithWhereUniqueWithoutMentionedInPostsInput[]
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutMentionedInPostsInput | Prisma.UserUpdateWithWhereUniqueWithoutMentionedInPostsInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutMentionedInPostsInput | Prisma.UserUpdateManyWithWhereWithoutMentionedInPostsInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
 export type UserCreateNestedOneWithoutCreatedMediaInput = {
@@ -1168,6 +1213,7 @@ export type UserCreateWithoutCreatedUsersInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
@@ -1205,6 +1251,7 @@ export type UserUncheckedCreateWithoutCreatedUsersInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
 }
@@ -1240,6 +1287,7 @@ export type UserCreateWithoutCreatedByInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
@@ -1276,6 +1324,7 @@ export type UserUncheckedCreateWithoutCreatedByInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -1317,6 +1366,7 @@ export type UserCreateWithoutUpdatedUsersInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -1354,6 +1404,7 @@ export type UserUncheckedCreateWithoutUpdatedUsersInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
 }
@@ -1389,6 +1440,7 @@ export type UserCreateWithoutUpdatedByInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
@@ -1425,6 +1477,7 @@ export type UserUncheckedCreateWithoutUpdatedByInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -1466,6 +1519,7 @@ export type UserCreateWithoutDeletedUsersInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -1503,6 +1557,7 @@ export type UserUncheckedCreateWithoutDeletedUsersInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
 }
@@ -1538,6 +1593,7 @@ export type UserCreateWithoutDeletedByInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -1574,6 +1630,7 @@ export type UserUncheckedCreateWithoutDeletedByInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -1626,6 +1683,7 @@ export type UserUpdateWithoutCreatedUsersInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
@@ -1663,6 +1721,7 @@ export type UserUncheckedUpdateWithoutCreatedUsersInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
 }
@@ -1739,6 +1798,7 @@ export type UserUpdateWithoutUpdatedUsersInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -1776,6 +1836,7 @@ export type UserUncheckedUpdateWithoutUpdatedUsersInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
 }
@@ -1833,6 +1894,7 @@ export type UserUpdateWithoutDeletedUsersInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -1870,6 +1932,7 @@ export type UserUncheckedUpdateWithoutDeletedUsersInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
 }
@@ -1915,6 +1978,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -1952,6 +2016,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -1998,6 +2063,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -2035,6 +2101,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -2065,6 +2132,7 @@ export type UserCreateWithoutDevicesInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -2102,6 +2170,7 @@ export type UserUncheckedCreateWithoutDevicesInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -2148,6 +2217,7 @@ export type UserUpdateWithoutDevicesInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -2185,9 +2255,84 @@ export type UserUncheckedUpdateWithoutDevicesInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+}
+
+export type UserCreateWithoutMentionedInPostsInput = {
+  username: string
+  bio?: string | null
+  email: string
+  avatarUrl?: string | null
+  password: string
+  totpSecret?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  devices?: Prisma.DeviceCreateNestedManyWithoutUserInput
+  createdPosts?: Prisma.PostCreateNestedManyWithoutCreatedByInput
+  updatedPosts?: Prisma.PostCreateNestedManyWithoutUpdatedByInput
+  deletedPosts?: Prisma.PostCreateNestedManyWithoutDeletedByInput
+  createdMedia?: Prisma.MediaCreateNestedManyWithoutCreatedByInput
+  deletedMedia?: Prisma.MediaCreateNestedManyWithoutDeletedByInput
+  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutUserInput
+  createdBookmarks?: Prisma.BookmarkCreateNestedManyWithoutCreatedByInput
+  updatedBookmarks?: Prisma.BookmarkCreateNestedManyWithoutUpdatedByInput
+  deletedBookmarks?: Prisma.BookmarkCreateNestedManyWithoutDeletedByInput
+  createdTopics?: Prisma.TopicCreateNestedManyWithoutCreatedByInput
+  updatedTopics?: Prisma.TopicCreateNestedManyWithoutUpdatedByInput
+  deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
+  topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
+  createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
+  updatedUsers?: Prisma.UserCreateNestedManyWithoutUpdatedByInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedUsersInput
+  deletedUsers?: Prisma.UserCreateNestedManyWithoutDeletedByInput
+}
+
+export type UserUncheckedCreateWithoutMentionedInPostsInput = {
+  id?: number
+  username: string
+  bio?: string | null
+  email: string
+  avatarUrl?: string | null
+  password: string
+  totpSecret?: string | null
+  createdById?: number | null
+  updatedById?: number | null
+  deletedById?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  devices?: Prisma.DeviceUncheckedCreateNestedManyWithoutUserInput
+  createdPosts?: Prisma.PostUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedPosts?: Prisma.PostUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedPosts?: Prisma.PostUncheckedCreateNestedManyWithoutDeletedByInput
+  createdMedia?: Prisma.MediaUncheckedCreateNestedManyWithoutCreatedByInput
+  deletedMedia?: Prisma.MediaUncheckedCreateNestedManyWithoutDeletedByInput
+  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUserInput
+  createdBookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedBookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedBookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutDeletedByInput
+  createdTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
+  topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
+  updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
+  deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
+}
+
+export type UserCreateOrConnectWithoutMentionedInPostsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMentionedInPostsInput, Prisma.UserUncheckedCreateWithoutMentionedInPostsInput>
 }
 
 export type UserCreateWithoutCreatedPostsInput = {
@@ -2215,6 +2360,7 @@ export type UserCreateWithoutCreatedPostsInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -2252,6 +2398,7 @@ export type UserUncheckedCreateWithoutCreatedPostsInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -2287,6 +2434,7 @@ export type UserCreateWithoutUpdatedPostsInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -2324,6 +2472,7 @@ export type UserUncheckedCreateWithoutUpdatedPostsInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -2359,6 +2508,7 @@ export type UserCreateWithoutDeletedPostsInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -2396,6 +2546,7 @@ export type UserUncheckedCreateWithoutDeletedPostsInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -2404,6 +2555,22 @@ export type UserUncheckedCreateWithoutDeletedPostsInput = {
 export type UserCreateOrConnectWithoutDeletedPostsInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutDeletedPostsInput, Prisma.UserUncheckedCreateWithoutDeletedPostsInput>
+}
+
+export type UserUpsertWithWhereUniqueWithoutMentionedInPostsInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMentionedInPostsInput, Prisma.UserUncheckedUpdateWithoutMentionedInPostsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMentionedInPostsInput, Prisma.UserUncheckedCreateWithoutMentionedInPostsInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutMentionedInPostsInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMentionedInPostsInput, Prisma.UserUncheckedUpdateWithoutMentionedInPostsInput>
+}
+
+export type UserUpdateManyWithWhereWithoutMentionedInPostsInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutMentionedInPostsInput>
 }
 
 export type UserUpsertWithoutCreatedPostsInput = {
@@ -2442,6 +2609,7 @@ export type UserUpdateWithoutCreatedPostsInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -2479,6 +2647,7 @@ export type UserUncheckedUpdateWithoutCreatedPostsInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -2520,6 +2689,7 @@ export type UserUpdateWithoutUpdatedPostsInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -2557,6 +2727,7 @@ export type UserUncheckedUpdateWithoutUpdatedPostsInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -2598,6 +2769,7 @@ export type UserUpdateWithoutDeletedPostsInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -2635,6 +2807,7 @@ export type UserUncheckedUpdateWithoutDeletedPostsInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -2665,6 +2838,7 @@ export type UserCreateWithoutCreatedMediaInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -2702,6 +2876,7 @@ export type UserUncheckedCreateWithoutCreatedMediaInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -2737,6 +2912,7 @@ export type UserCreateWithoutDeletedMediaInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -2774,6 +2950,7 @@ export type UserUncheckedCreateWithoutDeletedMediaInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -2820,6 +2997,7 @@ export type UserUpdateWithoutCreatedMediaInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -2857,6 +3035,7 @@ export type UserUncheckedUpdateWithoutCreatedMediaInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -2898,6 +3077,7 @@ export type UserUpdateWithoutDeletedMediaInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -2935,6 +3115,7 @@ export type UserUncheckedUpdateWithoutDeletedMediaInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -2965,6 +3146,7 @@ export type UserCreateWithoutBookmarksInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -3002,6 +3184,7 @@ export type UserUncheckedCreateWithoutBookmarksInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3037,6 +3220,7 @@ export type UserCreateWithoutCreatedBookmarksInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -3074,6 +3258,7 @@ export type UserUncheckedCreateWithoutCreatedBookmarksInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3109,6 +3294,7 @@ export type UserCreateWithoutUpdatedBookmarksInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -3146,6 +3332,7 @@ export type UserUncheckedCreateWithoutUpdatedBookmarksInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3181,6 +3368,7 @@ export type UserCreateWithoutDeletedBookmarksInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -3218,6 +3406,7 @@ export type UserUncheckedCreateWithoutDeletedBookmarksInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3264,6 +3453,7 @@ export type UserUpdateWithoutBookmarksInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -3301,6 +3491,7 @@ export type UserUncheckedUpdateWithoutBookmarksInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -3342,6 +3533,7 @@ export type UserUpdateWithoutCreatedBookmarksInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -3379,6 +3571,7 @@ export type UserUncheckedUpdateWithoutCreatedBookmarksInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -3420,6 +3613,7 @@ export type UserUpdateWithoutUpdatedBookmarksInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -3457,6 +3651,7 @@ export type UserUncheckedUpdateWithoutUpdatedBookmarksInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -3498,6 +3693,7 @@ export type UserUpdateWithoutDeletedBookmarksInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -3535,6 +3731,7 @@ export type UserUncheckedUpdateWithoutDeletedBookmarksInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -3565,6 +3762,7 @@ export type UserCreateWithoutCreatedTopicsInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -3602,6 +3800,7 @@ export type UserUncheckedCreateWithoutCreatedTopicsInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3637,6 +3836,7 @@ export type UserCreateWithoutUpdatedTopicsInput = {
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -3674,6 +3874,7 @@ export type UserUncheckedCreateWithoutUpdatedTopicsInput = {
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3709,6 +3910,7 @@ export type UserCreateWithoutDeletedTopicsInput = {
   updatedTopics?: Prisma.TopicCreateNestedManyWithoutUpdatedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -3746,6 +3948,7 @@ export type UserUncheckedCreateWithoutDeletedTopicsInput = {
   updatedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutUpdatedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -3792,6 +3995,7 @@ export type UserUpdateWithoutCreatedTopicsInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -3829,6 +4033,7 @@ export type UserUncheckedUpdateWithoutCreatedTopicsInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -3870,6 +4075,7 @@ export type UserUpdateWithoutUpdatedTopicsInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -3907,6 +4113,7 @@ export type UserUncheckedUpdateWithoutUpdatedTopicsInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -3948,6 +4155,7 @@ export type UserUpdateWithoutDeletedTopicsInput = {
   updatedTopics?: Prisma.TopicUpdateManyWithoutUpdatedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -3985,6 +4193,7 @@ export type UserUncheckedUpdateWithoutDeletedTopicsInput = {
   updatedTopics?: Prisma.TopicUncheckedUpdateManyWithoutUpdatedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -4015,6 +4224,7 @@ export type UserCreateWithoutTopicMembersInput = {
   updatedTopics?: Prisma.TopicCreateNestedManyWithoutUpdatedByInput
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   likes?: Prisma.LikeCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -4052,6 +4262,7 @@ export type UserUncheckedCreateWithoutTopicMembersInput = {
   updatedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -4098,6 +4309,7 @@ export type UserUpdateWithoutTopicMembersInput = {
   updatedTopics?: Prisma.TopicUpdateManyWithoutUpdatedByNestedInput
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -4135,6 +4347,7 @@ export type UserUncheckedUpdateWithoutTopicMembersInput = {
   updatedTopics?: Prisma.TopicUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -4165,6 +4378,7 @@ export type UserCreateWithoutLikesInput = {
   updatedTopics?: Prisma.TopicCreateNestedManyWithoutUpdatedByInput
   deletedTopics?: Prisma.TopicCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostCreateNestedManyWithoutMentionedUsersInput
   createdBy?: Prisma.UserCreateNestedOneWithoutCreatedUsersInput
   createdUsers?: Prisma.UserCreateNestedManyWithoutCreatedByInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedUsersInput
@@ -4202,6 +4416,7 @@ export type UserUncheckedCreateWithoutLikesInput = {
   updatedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedTopics?: Prisma.TopicUncheckedCreateNestedManyWithoutDeletedByInput
   topicMembers?: Prisma.TopicMemberUncheckedCreateNestedManyWithoutUserInput
+  mentionedInPosts?: Prisma.PostUncheckedCreateNestedManyWithoutMentionedUsersInput
   createdUsers?: Prisma.UserUncheckedCreateNestedManyWithoutCreatedByInput
   updatedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutUpdatedByInput
   deletedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutDeletedByInput
@@ -4248,6 +4463,7 @@ export type UserUpdateWithoutLikesInput = {
   updatedTopics?: Prisma.TopicUpdateManyWithoutUpdatedByNestedInput
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -4285,6 +4501,7 @@ export type UserUncheckedUpdateWithoutLikesInput = {
   updatedTopics?: Prisma.TopicUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -4361,6 +4578,7 @@ export type UserUpdateWithoutCreatedByInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
@@ -4397,6 +4615,7 @@ export type UserUncheckedUpdateWithoutCreatedByInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -4443,6 +4662,7 @@ export type UserUpdateWithoutUpdatedByInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
@@ -4479,6 +4699,7 @@ export type UserUncheckedUpdateWithoutUpdatedByInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -4525,6 +4746,7 @@ export type UserUpdateWithoutDeletedByInput = {
   deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUpdateManyWithoutMentionedUsersNestedInput
   createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
   createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
@@ -4561,6 +4783,7 @@ export type UserUncheckedUpdateWithoutDeletedByInput = {
   deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
   topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  mentionedInPosts?: Prisma.PostUncheckedUpdateManyWithoutMentionedUsersNestedInput
   createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
   updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
   deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
@@ -4576,6 +4799,91 @@ export type UserUncheckedUpdateManyWithoutDeletedByInput = {
   totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type UserUpdateWithoutMentionedInPostsInput = {
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  devices?: Prisma.DeviceUpdateManyWithoutUserNestedInput
+  createdPosts?: Prisma.PostUpdateManyWithoutCreatedByNestedInput
+  updatedPosts?: Prisma.PostUpdateManyWithoutUpdatedByNestedInput
+  deletedPosts?: Prisma.PostUpdateManyWithoutDeletedByNestedInput
+  createdMedia?: Prisma.MediaUpdateManyWithoutCreatedByNestedInput
+  deletedMedia?: Prisma.MediaUpdateManyWithoutDeletedByNestedInput
+  bookmarks?: Prisma.BookmarkUpdateManyWithoutUserNestedInput
+  createdBookmarks?: Prisma.BookmarkUpdateManyWithoutCreatedByNestedInput
+  updatedBookmarks?: Prisma.BookmarkUpdateManyWithoutUpdatedByNestedInput
+  deletedBookmarks?: Prisma.BookmarkUpdateManyWithoutDeletedByNestedInput
+  createdTopics?: Prisma.TopicUpdateManyWithoutCreatedByNestedInput
+  updatedTopics?: Prisma.TopicUpdateManyWithoutUpdatedByNestedInput
+  deletedTopics?: Prisma.TopicUpdateManyWithoutDeletedByNestedInput
+  topicMembers?: Prisma.TopicMemberUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutUserNestedInput
+  createdBy?: Prisma.UserUpdateOneWithoutCreatedUsersNestedInput
+  createdUsers?: Prisma.UserUpdateManyWithoutCreatedByNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedUsersNestedInput
+  updatedUsers?: Prisma.UserUpdateManyWithoutUpdatedByNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutDeletedUsersNestedInput
+  deletedUsers?: Prisma.UserUpdateManyWithoutDeletedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMentionedInPostsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  devices?: Prisma.DeviceUncheckedUpdateManyWithoutUserNestedInput
+  createdPosts?: Prisma.PostUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedPosts?: Prisma.PostUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedPosts?: Prisma.PostUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdMedia?: Prisma.MediaUncheckedUpdateManyWithoutCreatedByNestedInput
+  deletedMedia?: Prisma.MediaUncheckedUpdateManyWithoutDeletedByNestedInput
+  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUserNestedInput
+  createdBookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedBookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedBookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutDeletedByNestedInput
+  createdTopics?: Prisma.TopicUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedTopics?: Prisma.TopicUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedTopics?: Prisma.TopicUncheckedUpdateManyWithoutDeletedByNestedInput
+  topicMembers?: Prisma.TopicMemberUncheckedUpdateManyWithoutUserNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutUserNestedInput
+  createdUsers?: Prisma.UserUncheckedUpdateManyWithoutCreatedByNestedInput
+  updatedUsers?: Prisma.UserUncheckedUpdateManyWithoutUpdatedByNestedInput
+  deletedUsers?: Prisma.UserUncheckedUpdateManyWithoutDeletedByNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutMentionedInPostsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  totpSecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -4603,6 +4911,7 @@ export type UserCountOutputType = {
   deletedTopics: number
   topicMembers: number
   likes: number
+  mentionedInPosts: number
   createdUsers: number
   updatedUsers: number
   deletedUsers: number
@@ -4625,6 +4934,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   deletedTopics?: boolean | UserCountOutputTypeCountDeletedTopicsArgs
   topicMembers?: boolean | UserCountOutputTypeCountTopicMembersArgs
   likes?: boolean | UserCountOutputTypeCountLikesArgs
+  mentionedInPosts?: boolean | UserCountOutputTypeCountMentionedInPostsArgs
   createdUsers?: boolean | UserCountOutputTypeCountCreatedUsersArgs
   updatedUsers?: boolean | UserCountOutputTypeCountUpdatedUsersArgs
   deletedUsers?: boolean | UserCountOutputTypeCountDeletedUsersArgs
@@ -4755,6 +5065,13 @@ export type UserCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Exte
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountMentionedInPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PostWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountCreatedUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserWhereInput
 }
@@ -4804,6 +5121,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   deletedTopics?: boolean | Prisma.User$deletedTopicsArgs<ExtArgs>
   topicMembers?: boolean | Prisma.User$topicMembersArgs<ExtArgs>
   likes?: boolean | Prisma.User$likesArgs<ExtArgs>
+  mentionedInPosts?: boolean | Prisma.User$mentionedInPostsArgs<ExtArgs>
   createdBy?: boolean | Prisma.User$createdByArgs<ExtArgs>
   createdUsers?: boolean | Prisma.User$createdUsersArgs<ExtArgs>
   updatedBy?: boolean | Prisma.User$updatedByArgs<ExtArgs>
@@ -4885,6 +5203,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   deletedTopics?: boolean | Prisma.User$deletedTopicsArgs<ExtArgs>
   topicMembers?: boolean | Prisma.User$topicMembersArgs<ExtArgs>
   likes?: boolean | Prisma.User$likesArgs<ExtArgs>
+  mentionedInPosts?: boolean | Prisma.User$mentionedInPostsArgs<ExtArgs>
   createdBy?: boolean | Prisma.User$createdByArgs<ExtArgs>
   createdUsers?: boolean | Prisma.User$createdUsersArgs<ExtArgs>
   updatedBy?: boolean | Prisma.User$updatedByArgs<ExtArgs>
@@ -4923,6 +5242,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     deletedTopics: Prisma.$TopicPayload<ExtArgs>[]
     topicMembers: Prisma.$TopicMemberPayload<ExtArgs>[]
     likes: Prisma.$LikePayload<ExtArgs>[]
+    mentionedInPosts: Prisma.$PostPayload<ExtArgs>[]
     createdBy: Prisma.$UserPayload<ExtArgs> | null
     createdUsers: Prisma.$UserPayload<ExtArgs>[]
     updatedBy: Prisma.$UserPayload<ExtArgs> | null
@@ -5354,6 +5674,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   deletedTopics<T extends Prisma.User$deletedTopicsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deletedTopicsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TopicPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   topicMembers<T extends Prisma.User$topicMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$topicMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TopicMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   likes<T extends Prisma.User$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  mentionedInPosts<T extends Prisma.User$mentionedInPostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$mentionedInPostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   createdBy<T extends Prisma.User$createdByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdUsers<T extends Prisma.User$createdUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   updatedBy<T extends Prisma.User$updatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$updatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -6184,6 +6505,30 @@ export type User$likesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.LikeScalarFieldEnum | Prisma.LikeScalarFieldEnum[]
+}
+
+/**
+ * User.mentionedInPosts
+ */
+export type User$mentionedInPostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Post
+   */
+  select?: Prisma.PostSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Post
+   */
+  omit?: Prisma.PostOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PostInclude<ExtArgs> | null
+  where?: Prisma.PostWhereInput
+  orderBy?: Prisma.PostOrderByWithRelationInput | Prisma.PostOrderByWithRelationInput[]
+  cursor?: Prisma.PostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PostScalarFieldEnum | Prisma.PostScalarFieldEnum[]
 }
 
 /**

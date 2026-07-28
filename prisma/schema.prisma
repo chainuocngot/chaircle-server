@@ -38,6 +38,7 @@ model User {
   deletedTopics    Topic[]        @relation("TopicDeletedBy")
   topicMembers     TopicMember[]
   likes            Like[]
+  mentionedInPosts Post[]
 
   createdById  Int?   @map("created_by_id")
   createdBy    User?  @relation("UserCreatedBy", fields: [createdById], references: [id], onDelete: SetNull, onUpdate: NoAction)
@@ -111,9 +112,16 @@ model Device {
 }
 
 model Post {
-  id        Int    @id @default(autoincrement())
-  content   String @db.VarChar(5000)
-  likeCount Int    @default(0) @map("like_count")
+  id           Int    @id @default(autoincrement())
+  content      String @db.VarChar(5000)
+  likeCount    Int    @default(0) @map("like_count")
+  viewCount    Int    @default(0) @map("view_count")
+  commentCount Int    @default(0) @map("comment_count")
+  repostCount  Int    @default(0) @map("repost_count")
+
+  replyPermission PostReplyPermission @default(EVERYONE) @map("reply_permission")
+
+  mentionedUsers User[]
 
   topicId Int?   @map("topic_id")
   topic   Topic? @relation(fields: [topicId], references: [id])
@@ -287,4 +295,11 @@ enum HlsMediaStatusEnum {
   PROCESSING
   SUCCESS
   FAILED
+}
+
+enum PostReplyPermission {
+  EVERYONE
+  FOLLOWERS
+  FOLLOWING
+  MENTIONED
 }

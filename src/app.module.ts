@@ -12,6 +12,7 @@ import { SharedModule } from 'src/shared/shared.module';
 
 import { AppController } from './app.controller';
 import { AuthModule } from './routes/auth/auth.module';
+import { PostModule } from './routes/post/post.module';
 import { UserModule } from './routes/user/user.module';
 
 @Module({
@@ -30,6 +31,7 @@ import { UserModule } from './routes/user/user.module';
     SharedModule,
     AuthModule,
     UserModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [

@@ -35,3 +35,13 @@ export const HlsMediaStatusEnum = {
 } as const
 
 export type HlsMediaStatusEnum = (typeof HlsMediaStatusEnum)[keyof typeof HlsMediaStatusEnum]
+
+
+export const PostReplyPermission = {
+  EVERYONE: 'EVERYONE',
+  FOLLOWERS: 'FOLLOWERS',
+  FOLLOWING: 'FOLLOWING',
+  MENTIONED: 'MENTIONED'
+} as const
+
+export type PostReplyPermission = (typeof PostReplyPermission)[keyof typeof PostReplyPermission]

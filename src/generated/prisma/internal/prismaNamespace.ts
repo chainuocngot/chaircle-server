@@ -1401,6 +1401,10 @@ export const PostScalarFieldEnum = {
   id: 'id',
   content: 'content',
   likeCount: 'likeCount',
+  viewCount: 'viewCount',
+  commentCount: 'commentCount',
+  repostCount: 'repostCount',
+  replyPermission: 'replyPermission',
   topicId: 'topicId',
   createdAt: 'createdAt',
   createdById: 'createdById',
@@ -1587,6 +1591,20 @@ export type ListEnumVerificationCodeTypeFieldRefInput<$PrismaModel> = FieldRefIn
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'PostReplyPermission'
+ */
+export type EnumPostReplyPermissionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostReplyPermission'>
+    
+
+
+/**
+ * Reference to a field of type 'PostReplyPermission[]'
+ */
+export type ListEnumPostReplyPermissionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostReplyPermission[]'>
     
 
 

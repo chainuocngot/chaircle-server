@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "posts" ADD COLUMN     "comment_count" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "repost_count" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "view_count" INTEGER NOT NULL DEFAULT 0;

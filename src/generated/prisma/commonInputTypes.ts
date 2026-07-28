@@ -218,6 +218,23 @@ export type BoolWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
+export type EnumPostReplyPermissionFilter<$PrismaModel = never> = {
+  equals?: $Enums.PostReplyPermission | Prisma.EnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  in?: $Enums.PostReplyPermission[] | Prisma.ListEnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PostReplyPermission[] | Prisma.ListEnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPostReplyPermissionFilter<$PrismaModel> | $Enums.PostReplyPermission
+}
+
+export type EnumPostReplyPermissionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PostReplyPermission | Prisma.EnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  in?: $Enums.PostReplyPermission[] | Prisma.ListEnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PostReplyPermission[] | Prisma.ListEnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPostReplyPermissionWithAggregatesFilter<$PrismaModel> | $Enums.PostReplyPermission
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPostReplyPermissionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPostReplyPermissionFilter<$PrismaModel>
+}
+
 export type EnumMediaTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.MediaType | Prisma.EnumMediaTypeFieldRefInput<$PrismaModel>
   in?: $Enums.MediaType[] | Prisma.ListEnumMediaTypeFieldRefInput<$PrismaModel>
@@ -468,6 +485,23 @@ export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedBoolFilter<$PrismaModel>
   _max?: Prisma.NestedBoolFilter<$PrismaModel>
+}
+
+export type NestedEnumPostReplyPermissionFilter<$PrismaModel = never> = {
+  equals?: $Enums.PostReplyPermission | Prisma.EnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  in?: $Enums.PostReplyPermission[] | Prisma.ListEnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PostReplyPermission[] | Prisma.ListEnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPostReplyPermissionFilter<$PrismaModel> | $Enums.PostReplyPermission
+}
+
+export type NestedEnumPostReplyPermissionWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.PostReplyPermission | Prisma.EnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  in?: $Enums.PostReplyPermission[] | Prisma.ListEnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  notIn?: $Enums.PostReplyPermission[] | Prisma.ListEnumPostReplyPermissionFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumPostReplyPermissionWithAggregatesFilter<$PrismaModel> | $Enums.PostReplyPermission
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumPostReplyPermissionFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumPostReplyPermissionFilter<$PrismaModel>
 }
 
 export type NestedEnumMediaTypeFilter<$PrismaModel = never> = {

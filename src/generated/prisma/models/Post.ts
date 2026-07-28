@@ -28,6 +28,9 @@ export type AggregatePost = {
 export type PostAvgAggregateOutputType = {
   id: number | null
   likeCount: number | null
+  viewCount: number | null
+  commentCount: number | null
+  repostCount: number | null
   topicId: number | null
   createdById: number | null
   updatedById: number | null
@@ -37,6 +40,9 @@ export type PostAvgAggregateOutputType = {
 export type PostSumAggregateOutputType = {
   id: number | null
   likeCount: number | null
+  viewCount: number | null
+  commentCount: number | null
+  repostCount: number | null
   topicId: number | null
   createdById: number | null
   updatedById: number | null
@@ -47,6 +53,10 @@ export type PostMinAggregateOutputType = {
   id: number | null
   content: string | null
   likeCount: number | null
+  viewCount: number | null
+  commentCount: number | null
+  repostCount: number | null
+  replyPermission: $Enums.PostReplyPermission | null
   topicId: number | null
   createdAt: Date | null
   createdById: number | null
@@ -60,6 +70,10 @@ export type PostMaxAggregateOutputType = {
   id: number | null
   content: string | null
   likeCount: number | null
+  viewCount: number | null
+  commentCount: number | null
+  repostCount: number | null
+  replyPermission: $Enums.PostReplyPermission | null
   topicId: number | null
   createdAt: Date | null
   createdById: number | null
@@ -73,6 +87,10 @@ export type PostCountAggregateOutputType = {
   id: number
   content: number
   likeCount: number
+  viewCount: number
+  commentCount: number
+  repostCount: number
+  replyPermission: number
   topicId: number
   createdAt: number
   createdById: number
@@ -87,6 +105,9 @@ export type PostCountAggregateOutputType = {
 export type PostAvgAggregateInputType = {
   id?: true
   likeCount?: true
+  viewCount?: true
+  commentCount?: true
+  repostCount?: true
   topicId?: true
   createdById?: true
   updatedById?: true
@@ -96,6 +117,9 @@ export type PostAvgAggregateInputType = {
 export type PostSumAggregateInputType = {
   id?: true
   likeCount?: true
+  viewCount?: true
+  commentCount?: true
+  repostCount?: true
   topicId?: true
   createdById?: true
   updatedById?: true
@@ -106,6 +130,10 @@ export type PostMinAggregateInputType = {
   id?: true
   content?: true
   likeCount?: true
+  viewCount?: true
+  commentCount?: true
+  repostCount?: true
+  replyPermission?: true
   topicId?: true
   createdAt?: true
   createdById?: true
@@ -119,6 +147,10 @@ export type PostMaxAggregateInputType = {
   id?: true
   content?: true
   likeCount?: true
+  viewCount?: true
+  commentCount?: true
+  repostCount?: true
+  replyPermission?: true
   topicId?: true
   createdAt?: true
   createdById?: true
@@ -132,6 +164,10 @@ export type PostCountAggregateInputType = {
   id?: true
   content?: true
   likeCount?: true
+  viewCount?: true
+  commentCount?: true
+  repostCount?: true
+  replyPermission?: true
   topicId?: true
   createdAt?: true
   createdById?: true
@@ -232,6 +268,10 @@ export type PostGroupByOutputType = {
   id: number
   content: string
   likeCount: number
+  viewCount: number
+  commentCount: number
+  repostCount: number
+  replyPermission: $Enums.PostReplyPermission
   topicId: number | null
   createdAt: Date
   createdById: number
@@ -268,6 +308,10 @@ export type PostWhereInput = {
   id?: Prisma.IntFilter<"Post"> | number
   content?: Prisma.StringFilter<"Post"> | string
   likeCount?: Prisma.IntFilter<"Post"> | number
+  viewCount?: Prisma.IntFilter<"Post"> | number
+  commentCount?: Prisma.IntFilter<"Post"> | number
+  repostCount?: Prisma.IntFilter<"Post"> | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFilter<"Post"> | $Enums.PostReplyPermission
   topicId?: Prisma.IntNullableFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   createdById?: Prisma.IntFilter<"Post"> | number
@@ -275,6 +319,7 @@ export type PostWhereInput = {
   updatedById?: Prisma.IntNullableFilter<"Post"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   deletedById?: Prisma.IntNullableFilter<"Post"> | number | null
+  mentionedUsers?: Prisma.UserListRelationFilter
   topic?: Prisma.XOR<Prisma.TopicNullableScalarRelationFilter, Prisma.TopicWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -288,6 +333,10 @@ export type PostOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
+  repostCount?: Prisma.SortOrder
+  replyPermission?: Prisma.SortOrder
   topicId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -295,6 +344,7 @@ export type PostOrderByWithRelationInput = {
   updatedById?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  mentionedUsers?: Prisma.UserOrderByRelationAggregateInput
   topic?: Prisma.TopicOrderByWithRelationInput
   createdBy?: Prisma.UserOrderByWithRelationInput
   updatedBy?: Prisma.UserOrderByWithRelationInput
@@ -311,6 +361,10 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PostWhereInput | Prisma.PostWhereInput[]
   content?: Prisma.StringFilter<"Post"> | string
   likeCount?: Prisma.IntFilter<"Post"> | number
+  viewCount?: Prisma.IntFilter<"Post"> | number
+  commentCount?: Prisma.IntFilter<"Post"> | number
+  repostCount?: Prisma.IntFilter<"Post"> | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFilter<"Post"> | $Enums.PostReplyPermission
   topicId?: Prisma.IntNullableFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   createdById?: Prisma.IntFilter<"Post"> | number
@@ -318,6 +372,7 @@ export type PostWhereUniqueInput = Prisma.AtLeast<{
   updatedById?: Prisma.IntNullableFilter<"Post"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Post"> | Date | string | null
   deletedById?: Prisma.IntNullableFilter<"Post"> | number | null
+  mentionedUsers?: Prisma.UserListRelationFilter
   topic?: Prisma.XOR<Prisma.TopicNullableScalarRelationFilter, Prisma.TopicWhereInput> | null
   createdBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   updatedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -331,6 +386,10 @@ export type PostOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
+  repostCount?: Prisma.SortOrder
+  replyPermission?: Prisma.SortOrder
   topicId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -352,6 +411,10 @@ export type PostScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Post"> | number
   content?: Prisma.StringWithAggregatesFilter<"Post"> | string
   likeCount?: Prisma.IntWithAggregatesFilter<"Post"> | number
+  viewCount?: Prisma.IntWithAggregatesFilter<"Post"> | number
+  commentCount?: Prisma.IntWithAggregatesFilter<"Post"> | number
+  repostCount?: Prisma.IntWithAggregatesFilter<"Post"> | number
+  replyPermission?: Prisma.EnumPostReplyPermissionWithAggregatesFilter<"Post"> | $Enums.PostReplyPermission
   topicId?: Prisma.IntNullableWithAggregatesFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Post"> | Date | string
   createdById?: Prisma.IntWithAggregatesFilter<"Post"> | number
@@ -364,9 +427,14 @@ export type PostScalarWhereWithAggregatesInput = {
 export type PostCreateInput = {
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  mentionedUsers?: Prisma.UserCreateNestedManyWithoutMentionedInPostsInput
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPostsInput
@@ -380,6 +448,10 @@ export type PostUncheckedCreateInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   createdById: number
@@ -387,6 +459,7 @@ export type PostUncheckedCreateInput = {
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
+  mentionedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutMentionedInPostsInput
   postMedia?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutPostInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
@@ -395,9 +468,14 @@ export type PostUncheckedCreateInput = {
 export type PostUpdateInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentionedUsers?: Prisma.UserUpdateManyWithoutMentionedInPostsNestedInput
   topic?: Prisma.TopicUpdateOneWithoutPostsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPostsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPostsNestedInput
@@ -411,6 +489,10 @@ export type PostUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
@@ -418,6 +500,7 @@ export type PostUncheckedUpdateInput = {
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mentionedUsers?: Prisma.UserUncheckedUpdateManyWithoutMentionedInPostsNestedInput
   postMedia?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutPostNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -427,6 +510,10 @@ export type PostCreateManyInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   createdById: number
@@ -439,6 +526,10 @@ export type PostCreateManyInput = {
 export type PostUpdateManyMutationInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -448,6 +539,10 @@ export type PostUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
@@ -471,6 +566,10 @@ export type PostCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
+  repostCount?: Prisma.SortOrder
+  replyPermission?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -483,6 +582,9 @@ export type PostCountOrderByAggregateInput = {
 export type PostAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
+  repostCount?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
@@ -493,6 +595,10 @@ export type PostMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
+  repostCount?: Prisma.SortOrder
+  replyPermission?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -506,6 +612,10 @@ export type PostMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   content?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
+  repostCount?: Prisma.SortOrder
+  replyPermission?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
@@ -518,6 +628,9 @@ export type PostMinOrderByAggregateInput = {
 export type PostSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   likeCount?: Prisma.SortOrder
+  viewCount?: Prisma.SortOrder
+  commentCount?: Prisma.SortOrder
+  repostCount?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   createdById?: Prisma.SortOrder
   updatedById?: Prisma.SortOrder
@@ -550,6 +663,12 @@ export type PostCreateNestedManyWithoutDeletedByInput = {
   connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
 }
 
+export type PostCreateNestedManyWithoutMentionedUsersInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutMentionedUsersInput, Prisma.PostUncheckedCreateWithoutMentionedUsersInput> | Prisma.PostCreateWithoutMentionedUsersInput[] | Prisma.PostUncheckedCreateWithoutMentionedUsersInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutMentionedUsersInput | Prisma.PostCreateOrConnectWithoutMentionedUsersInput[]
+  connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+}
+
 export type PostUncheckedCreateNestedManyWithoutCreatedByInput = {
   create?: Prisma.XOR<Prisma.PostCreateWithoutCreatedByInput, Prisma.PostUncheckedCreateWithoutCreatedByInput> | Prisma.PostCreateWithoutCreatedByInput[] | Prisma.PostUncheckedCreateWithoutCreatedByInput[]
   connectOrCreate?: Prisma.PostCreateOrConnectWithoutCreatedByInput | Prisma.PostCreateOrConnectWithoutCreatedByInput[]
@@ -568,6 +687,12 @@ export type PostUncheckedCreateNestedManyWithoutDeletedByInput = {
   create?: Prisma.XOR<Prisma.PostCreateWithoutDeletedByInput, Prisma.PostUncheckedCreateWithoutDeletedByInput> | Prisma.PostCreateWithoutDeletedByInput[] | Prisma.PostUncheckedCreateWithoutDeletedByInput[]
   connectOrCreate?: Prisma.PostCreateOrConnectWithoutDeletedByInput | Prisma.PostCreateOrConnectWithoutDeletedByInput[]
   createMany?: Prisma.PostCreateManyDeletedByInputEnvelope
+  connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+}
+
+export type PostUncheckedCreateNestedManyWithoutMentionedUsersInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutMentionedUsersInput, Prisma.PostUncheckedCreateWithoutMentionedUsersInput> | Prisma.PostCreateWithoutMentionedUsersInput[] | Prisma.PostUncheckedCreateWithoutMentionedUsersInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutMentionedUsersInput | Prisma.PostCreateOrConnectWithoutMentionedUsersInput[]
   connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
 }
 
@@ -613,6 +738,19 @@ export type PostUpdateManyWithoutDeletedByNestedInput = {
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
 }
 
+export type PostUpdateManyWithoutMentionedUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutMentionedUsersInput, Prisma.PostUncheckedCreateWithoutMentionedUsersInput> | Prisma.PostCreateWithoutMentionedUsersInput[] | Prisma.PostUncheckedCreateWithoutMentionedUsersInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutMentionedUsersInput | Prisma.PostCreateOrConnectWithoutMentionedUsersInput[]
+  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutMentionedUsersInput | Prisma.PostUpsertWithWhereUniqueWithoutMentionedUsersInput[]
+  set?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  disconnect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  delete?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  update?: Prisma.PostUpdateWithWhereUniqueWithoutMentionedUsersInput | Prisma.PostUpdateWithWhereUniqueWithoutMentionedUsersInput[]
+  updateMany?: Prisma.PostUpdateManyWithWhereWithoutMentionedUsersInput | Prisma.PostUpdateManyWithWhereWithoutMentionedUsersInput[]
+  deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
+}
+
 export type PostUncheckedUpdateManyWithoutCreatedByNestedInput = {
   create?: Prisma.XOR<Prisma.PostCreateWithoutCreatedByInput, Prisma.PostUncheckedCreateWithoutCreatedByInput> | Prisma.PostCreateWithoutCreatedByInput[] | Prisma.PostUncheckedCreateWithoutCreatedByInput[]
   connectOrCreate?: Prisma.PostCreateOrConnectWithoutCreatedByInput | Prisma.PostCreateOrConnectWithoutCreatedByInput[]
@@ -653,6 +791,23 @@ export type PostUncheckedUpdateManyWithoutDeletedByNestedInput = {
   update?: Prisma.PostUpdateWithWhereUniqueWithoutDeletedByInput | Prisma.PostUpdateWithWhereUniqueWithoutDeletedByInput[]
   updateMany?: Prisma.PostUpdateManyWithWhereWithoutDeletedByInput | Prisma.PostUpdateManyWithWhereWithoutDeletedByInput[]
   deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
+}
+
+export type PostUncheckedUpdateManyWithoutMentionedUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.PostCreateWithoutMentionedUsersInput, Prisma.PostUncheckedCreateWithoutMentionedUsersInput> | Prisma.PostCreateWithoutMentionedUsersInput[] | Prisma.PostUncheckedCreateWithoutMentionedUsersInput[]
+  connectOrCreate?: Prisma.PostCreateOrConnectWithoutMentionedUsersInput | Prisma.PostCreateOrConnectWithoutMentionedUsersInput[]
+  upsert?: Prisma.PostUpsertWithWhereUniqueWithoutMentionedUsersInput | Prisma.PostUpsertWithWhereUniqueWithoutMentionedUsersInput[]
+  set?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  disconnect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  delete?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  connect?: Prisma.PostWhereUniqueInput | Prisma.PostWhereUniqueInput[]
+  update?: Prisma.PostUpdateWithWhereUniqueWithoutMentionedUsersInput | Prisma.PostUpdateWithWhereUniqueWithoutMentionedUsersInput[]
+  updateMany?: Prisma.PostUpdateManyWithWhereWithoutMentionedUsersInput | Prisma.PostUpdateManyWithWhereWithoutMentionedUsersInput[]
+  deleteMany?: Prisma.PostScalarWhereInput | Prisma.PostScalarWhereInput[]
+}
+
+export type EnumPostReplyPermissionFieldUpdateOperationsInput = {
+  set?: $Enums.PostReplyPermission
 }
 
 export type PostCreateNestedOneWithoutPostMediaInput = {
@@ -742,9 +897,14 @@ export type PostUpdateOneRequiredWithoutLikesNestedInput = {
 export type PostCreateWithoutCreatedByInput = {
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  mentionedUsers?: Prisma.UserCreateNestedManyWithoutMentionedInPostsInput
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPostsInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedPostsInput
@@ -757,12 +917,17 @@ export type PostUncheckedCreateWithoutCreatedByInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
+  mentionedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutMentionedInPostsInput
   postMedia?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutPostInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
@@ -781,9 +946,14 @@ export type PostCreateManyCreatedByInputEnvelope = {
 export type PostCreateWithoutUpdatedByInput = {
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  mentionedUsers?: Prisma.UserCreateNestedManyWithoutMentionedInPostsInput
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedPostsInput
@@ -796,12 +966,17 @@ export type PostUncheckedCreateWithoutUpdatedByInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   createdById: number
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   deletedById?: number | null
+  mentionedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutMentionedInPostsInput
   postMedia?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutPostInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
@@ -820,9 +995,14 @@ export type PostCreateManyUpdatedByInputEnvelope = {
 export type PostCreateWithoutDeletedByInput = {
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  mentionedUsers?: Prisma.UserCreateNestedManyWithoutMentionedInPostsInput
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPostsInput
@@ -835,12 +1015,17 @@ export type PostUncheckedCreateWithoutDeletedByInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   createdById: number
   updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
+  mentionedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutMentionedInPostsInput
   postMedia?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutPostInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
@@ -854,6 +1039,50 @@ export type PostCreateOrConnectWithoutDeletedByInput = {
 export type PostCreateManyDeletedByInputEnvelope = {
   data: Prisma.PostCreateManyDeletedByInput | Prisma.PostCreateManyDeletedByInput[]
   skipDuplicates?: boolean
+}
+
+export type PostCreateWithoutMentionedUsersInput = {
+  content: string
+  likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
+  createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
+  updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPostsInput
+  deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedPostsInput
+  postMedia?: Prisma.PostMediaCreateNestedManyWithoutPostInput
+  bookmarks?: Prisma.BookmarkCreateNestedManyWithoutPostInput
+  likes?: Prisma.LikeCreateNestedManyWithoutPostInput
+}
+
+export type PostUncheckedCreateWithoutMentionedUsersInput = {
+  id?: number
+  content: string
+  likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
+  topicId?: number | null
+  createdAt?: Date | string
+  createdById: number
+  updatedAt?: Date | string
+  updatedById?: number | null
+  deletedAt?: Date | string | null
+  deletedById?: number | null
+  postMedia?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
+  bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutPostInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
+}
+
+export type PostCreateOrConnectWithoutMentionedUsersInput = {
+  where: Prisma.PostWhereUniqueInput
+  create: Prisma.XOR<Prisma.PostCreateWithoutMentionedUsersInput, Prisma.PostUncheckedCreateWithoutMentionedUsersInput>
 }
 
 export type PostUpsertWithWhereUniqueWithoutCreatedByInput = {
@@ -879,6 +1108,10 @@ export type PostScalarWhereInput = {
   id?: Prisma.IntFilter<"Post"> | number
   content?: Prisma.StringFilter<"Post"> | string
   likeCount?: Prisma.IntFilter<"Post"> | number
+  viewCount?: Prisma.IntFilter<"Post"> | number
+  commentCount?: Prisma.IntFilter<"Post"> | number
+  repostCount?: Prisma.IntFilter<"Post"> | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFilter<"Post"> | $Enums.PostReplyPermission
   topicId?: Prisma.IntNullableFilter<"Post"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Post"> | Date | string
   createdById?: Prisma.IntFilter<"Post"> | number
@@ -920,12 +1153,33 @@ export type PostUpdateManyWithWhereWithoutDeletedByInput = {
   data: Prisma.XOR<Prisma.PostUpdateManyMutationInput, Prisma.PostUncheckedUpdateManyWithoutDeletedByInput>
 }
 
+export type PostUpsertWithWhereUniqueWithoutMentionedUsersInput = {
+  where: Prisma.PostWhereUniqueInput
+  update: Prisma.XOR<Prisma.PostUpdateWithoutMentionedUsersInput, Prisma.PostUncheckedUpdateWithoutMentionedUsersInput>
+  create: Prisma.XOR<Prisma.PostCreateWithoutMentionedUsersInput, Prisma.PostUncheckedCreateWithoutMentionedUsersInput>
+}
+
+export type PostUpdateWithWhereUniqueWithoutMentionedUsersInput = {
+  where: Prisma.PostWhereUniqueInput
+  data: Prisma.XOR<Prisma.PostUpdateWithoutMentionedUsersInput, Prisma.PostUncheckedUpdateWithoutMentionedUsersInput>
+}
+
+export type PostUpdateManyWithWhereWithoutMentionedUsersInput = {
+  where: Prisma.PostScalarWhereInput
+  data: Prisma.XOR<Prisma.PostUpdateManyMutationInput, Prisma.PostUncheckedUpdateManyWithoutMentionedUsersInput>
+}
+
 export type PostCreateWithoutPostMediaInput = {
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  mentionedUsers?: Prisma.UserCreateNestedManyWithoutMentionedInPostsInput
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPostsInput
@@ -938,6 +1192,10 @@ export type PostUncheckedCreateWithoutPostMediaInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   createdById: number
@@ -945,6 +1203,7 @@ export type PostUncheckedCreateWithoutPostMediaInput = {
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
+  mentionedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutMentionedInPostsInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutPostInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
 }
@@ -968,9 +1227,14 @@ export type PostUpdateToOneWithWhereWithoutPostMediaInput = {
 export type PostUpdateWithoutPostMediaInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentionedUsers?: Prisma.UserUpdateManyWithoutMentionedInPostsNestedInput
   topic?: Prisma.TopicUpdateOneWithoutPostsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPostsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPostsNestedInput
@@ -983,6 +1247,10 @@ export type PostUncheckedUpdateWithoutPostMediaInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
@@ -990,6 +1258,7 @@ export type PostUncheckedUpdateWithoutPostMediaInput = {
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mentionedUsers?: Prisma.UserUncheckedUpdateManyWithoutMentionedInPostsNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutPostNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -997,9 +1266,14 @@ export type PostUncheckedUpdateWithoutPostMediaInput = {
 export type PostCreateWithoutBookmarksInput = {
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  mentionedUsers?: Prisma.UserCreateNestedManyWithoutMentionedInPostsInput
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPostsInput
@@ -1012,6 +1286,10 @@ export type PostUncheckedCreateWithoutBookmarksInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   createdById: number
@@ -1019,6 +1297,7 @@ export type PostUncheckedCreateWithoutBookmarksInput = {
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
+  mentionedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutMentionedInPostsInput
   postMedia?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
 }
@@ -1042,9 +1321,14 @@ export type PostUpdateToOneWithWhereWithoutBookmarksInput = {
 export type PostUpdateWithoutBookmarksInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentionedUsers?: Prisma.UserUpdateManyWithoutMentionedInPostsNestedInput
   topic?: Prisma.TopicUpdateOneWithoutPostsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPostsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPostsNestedInput
@@ -1057,6 +1341,10 @@ export type PostUncheckedUpdateWithoutBookmarksInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1064,6 +1352,7 @@ export type PostUncheckedUpdateWithoutBookmarksInput = {
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mentionedUsers?: Prisma.UserUncheckedUpdateManyWithoutMentionedInPostsNestedInput
   postMedia?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -1071,9 +1360,14 @@ export type PostUncheckedUpdateWithoutBookmarksInput = {
 export type PostCreateWithoutTopicInput = {
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  mentionedUsers?: Prisma.UserCreateNestedManyWithoutMentionedInPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPostsInput
   deletedBy?: Prisma.UserCreateNestedOneWithoutDeletedPostsInput
@@ -1086,12 +1380,17 @@ export type PostUncheckedCreateWithoutTopicInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   createdAt?: Date | string
   createdById: number
   updatedAt?: Date | string
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
+  mentionedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutMentionedInPostsInput
   postMedia?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutPostInput
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutPostInput
@@ -1126,9 +1425,14 @@ export type PostUpdateManyWithWhereWithoutTopicInput = {
 export type PostCreateWithoutLikesInput = {
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  mentionedUsers?: Prisma.UserCreateNestedManyWithoutMentionedInPostsInput
   topic?: Prisma.TopicCreateNestedOneWithoutPostsInput
   createdBy: Prisma.UserCreateNestedOneWithoutCreatedPostsInput
   updatedBy?: Prisma.UserCreateNestedOneWithoutUpdatedPostsInput
@@ -1141,6 +1445,10 @@ export type PostUncheckedCreateWithoutLikesInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   createdById: number
@@ -1148,6 +1456,7 @@ export type PostUncheckedCreateWithoutLikesInput = {
   updatedById?: number | null
   deletedAt?: Date | string | null
   deletedById?: number | null
+  mentionedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutMentionedInPostsInput
   postMedia?: Prisma.PostMediaUncheckedCreateNestedManyWithoutPostInput
   bookmarks?: Prisma.BookmarkUncheckedCreateNestedManyWithoutPostInput
 }
@@ -1171,9 +1480,14 @@ export type PostUpdateToOneWithWhereWithoutLikesInput = {
 export type PostUpdateWithoutLikesInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentionedUsers?: Prisma.UserUpdateManyWithoutMentionedInPostsNestedInput
   topic?: Prisma.TopicUpdateOneWithoutPostsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPostsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPostsNestedInput
@@ -1186,6 +1500,10 @@ export type PostUncheckedUpdateWithoutLikesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1193,6 +1511,7 @@ export type PostUncheckedUpdateWithoutLikesInput = {
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mentionedUsers?: Prisma.UserUncheckedUpdateManyWithoutMentionedInPostsNestedInput
   postMedia?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutPostNestedInput
 }
@@ -1201,6 +1520,10 @@ export type PostCreateManyCreatedByInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1213,6 +1536,10 @@ export type PostCreateManyUpdatedByInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   createdById: number
@@ -1225,6 +1552,10 @@ export type PostCreateManyDeletedByInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   topicId?: number | null
   createdAt?: Date | string
   createdById: number
@@ -1236,9 +1567,14 @@ export type PostCreateManyDeletedByInput = {
 export type PostUpdateWithoutCreatedByInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentionedUsers?: Prisma.UserUpdateManyWithoutMentionedInPostsNestedInput
   topic?: Prisma.TopicUpdateOneWithoutPostsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPostsNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedPostsNestedInput
@@ -1251,12 +1587,17 @@ export type PostUncheckedUpdateWithoutCreatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mentionedUsers?: Prisma.UserUncheckedUpdateManyWithoutMentionedInPostsNestedInput
   postMedia?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutPostNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -1266,6 +1607,10 @@ export type PostUncheckedUpdateManyWithoutCreatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1277,9 +1622,14 @@ export type PostUncheckedUpdateManyWithoutCreatedByInput = {
 export type PostUpdateWithoutUpdatedByInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentionedUsers?: Prisma.UserUpdateManyWithoutMentionedInPostsNestedInput
   topic?: Prisma.TopicUpdateOneWithoutPostsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPostsNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedPostsNestedInput
@@ -1292,12 +1642,17 @@ export type PostUncheckedUpdateWithoutUpdatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mentionedUsers?: Prisma.UserUncheckedUpdateManyWithoutMentionedInPostsNestedInput
   postMedia?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutPostNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -1307,6 +1662,10 @@ export type PostUncheckedUpdateManyWithoutUpdatedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1318,9 +1677,14 @@ export type PostUncheckedUpdateManyWithoutUpdatedByInput = {
 export type PostUpdateWithoutDeletedByInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentionedUsers?: Prisma.UserUpdateManyWithoutMentionedInPostsNestedInput
   topic?: Prisma.TopicUpdateOneWithoutPostsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPostsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPostsNestedInput
@@ -1333,12 +1697,17 @@ export type PostUncheckedUpdateWithoutDeletedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentionedUsers?: Prisma.UserUncheckedUpdateManyWithoutMentionedInPostsNestedInput
   postMedia?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutPostNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -1348,6 +1717,10 @@ export type PostUncheckedUpdateManyWithoutDeletedByInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1356,10 +1729,70 @@ export type PostUncheckedUpdateManyWithoutDeletedByInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
+export type PostUpdateWithoutMentionedUsersInput = {
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  topic?: Prisma.TopicUpdateOneWithoutPostsNestedInput
+  createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPostsNestedInput
+  updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPostsNestedInput
+  deletedBy?: Prisma.UserUpdateOneWithoutDeletedPostsNestedInput
+  postMedia?: Prisma.PostMediaUpdateManyWithoutPostNestedInput
+  bookmarks?: Prisma.BookmarkUpdateManyWithoutPostNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateWithoutMentionedUsersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
+  topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  postMedia?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
+  bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutPostNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
+}
+
+export type PostUncheckedUpdateManyWithoutMentionedUsersInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
+  topicId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdById?: Prisma.IntFieldUpdateOperationsInput | number
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
 export type PostCreateManyTopicInput = {
   id?: number
   content: string
   likeCount?: number
+  viewCount?: number
+  commentCount?: number
+  repostCount?: number
+  replyPermission?: $Enums.PostReplyPermission
   createdAt?: Date | string
   createdById: number
   updatedAt?: Date | string
@@ -1371,9 +1804,14 @@ export type PostCreateManyTopicInput = {
 export type PostUpdateWithoutTopicInput = {
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  mentionedUsers?: Prisma.UserUpdateManyWithoutMentionedInPostsNestedInput
   createdBy?: Prisma.UserUpdateOneRequiredWithoutCreatedPostsNestedInput
   updatedBy?: Prisma.UserUpdateOneWithoutUpdatedPostsNestedInput
   deletedBy?: Prisma.UserUpdateOneWithoutDeletedPostsNestedInput
@@ -1386,12 +1824,17 @@ export type PostUncheckedUpdateWithoutTopicInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedById?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  mentionedUsers?: Prisma.UserUncheckedUpdateManyWithoutMentionedInPostsNestedInput
   postMedia?: Prisma.PostMediaUncheckedUpdateManyWithoutPostNestedInput
   bookmarks?: Prisma.BookmarkUncheckedUpdateManyWithoutPostNestedInput
   likes?: Prisma.LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -1401,6 +1844,10 @@ export type PostUncheckedUpdateManyWithoutTopicInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   content?: Prisma.StringFieldUpdateOperationsInput | string
   likeCount?: Prisma.IntFieldUpdateOperationsInput | number
+  viewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  commentCount?: Prisma.IntFieldUpdateOperationsInput | number
+  repostCount?: Prisma.IntFieldUpdateOperationsInput | number
+  replyPermission?: Prisma.EnumPostReplyPermissionFieldUpdateOperationsInput | $Enums.PostReplyPermission
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdById?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1415,12 +1862,14 @@ export type PostUncheckedUpdateManyWithoutTopicInput = {
  */
 
 export type PostCountOutputType = {
+  mentionedUsers: number
   postMedia: number
   bookmarks: number
   likes: number
 }
 
 export type PostCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  mentionedUsers?: boolean | PostCountOutputTypeCountMentionedUsersArgs
   postMedia?: boolean | PostCountOutputTypeCountPostMediaArgs
   bookmarks?: boolean | PostCountOutputTypeCountBookmarksArgs
   likes?: boolean | PostCountOutputTypeCountLikesArgs
@@ -1434,6 +1883,13 @@ export type PostCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the PostCountOutputType
    */
   select?: Prisma.PostCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PostCountOutputType without action
+ */
+export type PostCountOutputTypeCountMentionedUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserWhereInput
 }
 
 /**
@@ -1462,6 +1918,10 @@ export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   content?: boolean
   likeCount?: boolean
+  viewCount?: boolean
+  commentCount?: boolean
+  repostCount?: boolean
+  replyPermission?: boolean
   topicId?: boolean
   createdAt?: boolean
   createdById?: boolean
@@ -1469,6 +1929,7 @@ export type PostSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedById?: boolean
   deletedAt?: boolean
   deletedById?: boolean
+  mentionedUsers?: boolean | Prisma.Post$mentionedUsersArgs<ExtArgs>
   topic?: boolean | Prisma.Post$topicArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Post$updatedByArgs<ExtArgs>
@@ -1483,6 +1944,10 @@ export type PostSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   content?: boolean
   likeCount?: boolean
+  viewCount?: boolean
+  commentCount?: boolean
+  repostCount?: boolean
+  replyPermission?: boolean
   topicId?: boolean
   createdAt?: boolean
   createdById?: boolean
@@ -1500,6 +1965,10 @@ export type PostSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   content?: boolean
   likeCount?: boolean
+  viewCount?: boolean
+  commentCount?: boolean
+  repostCount?: boolean
+  replyPermission?: boolean
   topicId?: boolean
   createdAt?: boolean
   createdById?: boolean
@@ -1517,6 +1986,10 @@ export type PostSelectScalar = {
   id?: boolean
   content?: boolean
   likeCount?: boolean
+  viewCount?: boolean
+  commentCount?: boolean
+  repostCount?: boolean
+  replyPermission?: boolean
   topicId?: boolean
   createdAt?: boolean
   createdById?: boolean
@@ -1526,8 +1999,9 @@ export type PostSelectScalar = {
   deletedById?: boolean
 }
 
-export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "likeCount" | "topicId" | "createdAt" | "createdById" | "updatedAt" | "updatedById" | "deletedAt" | "deletedById", ExtArgs["result"]["post"]>
+export type PostOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "content" | "likeCount" | "viewCount" | "commentCount" | "repostCount" | "replyPermission" | "topicId" | "createdAt" | "createdById" | "updatedAt" | "updatedById" | "deletedAt" | "deletedById", ExtArgs["result"]["post"]>
 export type PostInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  mentionedUsers?: boolean | Prisma.Post$mentionedUsersArgs<ExtArgs>
   topic?: boolean | Prisma.Post$topicArgs<ExtArgs>
   createdBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   updatedBy?: boolean | Prisma.Post$updatedByArgs<ExtArgs>
@@ -1553,6 +2027,7 @@ export type PostIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Post"
   objects: {
+    mentionedUsers: Prisma.$UserPayload<ExtArgs>[]
     topic: Prisma.$TopicPayload<ExtArgs> | null
     createdBy: Prisma.$UserPayload<ExtArgs>
     updatedBy: Prisma.$UserPayload<ExtArgs> | null
@@ -1565,6 +2040,10 @@ export type $PostPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     content: string
     likeCount: number
+    viewCount: number
+    commentCount: number
+    repostCount: number
+    replyPermission: $Enums.PostReplyPermission
     topicId: number | null
     createdAt: Date
     createdById: number
@@ -1966,6 +2445,7 @@ readonly fields: PostFieldRefs;
  */
 export interface Prisma__PostClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  mentionedUsers<T extends Prisma.Post$mentionedUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$mentionedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   topic<T extends Prisma.Post$topicArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$topicArgs<ExtArgs>>): Prisma.Prisma__TopicClient<runtime.Types.Result.GetResult<Prisma.$TopicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   createdBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   updatedBy<T extends Prisma.Post$updatedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Post$updatedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -2005,6 +2485,10 @@ export interface PostFieldRefs {
   readonly id: Prisma.FieldRef<"Post", 'Int'>
   readonly content: Prisma.FieldRef<"Post", 'String'>
   readonly likeCount: Prisma.FieldRef<"Post", 'Int'>
+  readonly viewCount: Prisma.FieldRef<"Post", 'Int'>
+  readonly commentCount: Prisma.FieldRef<"Post", 'Int'>
+  readonly repostCount: Prisma.FieldRef<"Post", 'Int'>
+  readonly replyPermission: Prisma.FieldRef<"Post", 'PostReplyPermission'>
   readonly topicId: Prisma.FieldRef<"Post", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Post", 'DateTime'>
   readonly createdById: Prisma.FieldRef<"Post", 'Int'>
@@ -2410,6 +2894,30 @@ export type PostDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Posts to delete.
    */
   limit?: number
+}
+
+/**
+ * Post.mentionedUsers
+ */
+export type Post$mentionedUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[]
+  cursor?: Prisma.UserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
 }
 
 /**
