@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { GetMeResType, UpdateMeBodyType, UpdateMeResType } from 'src/routes/user/user.model';
+import {
+  GetMeResType,
+  GetUserResType,
+  UpdateMeBodyType,
+  UpdateMeResType,
+} from 'src/routes/user/user.model';
 import { UserType } from 'src/shared/models/user.model';
 import { SharedUserRepository } from 'src/shared/repositories/shared-user.repository';
 import { UsernameAlreadyTakenException, UserNotFoundException } from 'src/shared/shared.error';
@@ -46,5 +51,18 @@ export class UserService {
 
       throw error;
     }
+  }
+
+  async getUser(userId: UserType['id']): Promise<GetUserResType> {
+    const user = await this.sharedUserRepository.findUniqueUser({
+      id: userId,
+      deletedAt: null,
+    });
+
+    if (user === null) {
+      throw UserNotFoundException;
+    }
+
+    return user;
   }
 }
